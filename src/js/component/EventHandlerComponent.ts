@@ -1,6 +1,7 @@
 import {EventHandler} from "../EventHandler";
+import {Component} from "./Component";
 
-export class EventHandlerComponent {
+export class EventHandlerComponent implements Component{
     private handlers: EventHandler[]
     init(){
         window.addEventListener("keydown", e => {
