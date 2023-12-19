@@ -2,6 +2,8 @@ import {Card} from "./Card";
 import {UnoColorType} from "../const/UnoColorType";
 import {UnoCardType} from "../const/UnoCardType";
 import {CardBox} from "./CardBox";
+import {Drawable} from "../Drawable";
+import {Container} from "../Container";
 
 export class Dealer{
 
@@ -11,10 +13,5 @@ export class Dealer{
     constructor() {
         this.cardBox = new CardBox()
         this.cards = this.cardBox.getCards()
-    }
-
-
-    shuffle(){
-
     }
 }

@@ -36,7 +36,7 @@ export class Container{
     }
 
     _run(){
-
+        this.ctx.clearRect(0, 0, this.width, this.height)
     }
 
     async init() {
@@ -56,8 +56,17 @@ export class Container{
 
     run(){
         this.init()
-        this.animationId = window.requestAnimationFrame(this._run)
+        this.animationId = window.requestAnimationFrame(() => this._run())
     }
+
+    public getWidth(): number{
+        return this.width
+    }
+
+    public getHeight(): number {
+        return this.height
+    }
+
 
     static create(element: HTMLElement, config: Config){
         return new Container(element, config)
