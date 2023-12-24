@@ -3,6 +3,8 @@ import {ImageComponent} from "./component/ImageComponent";
 import {ConfigComponent} from "./component/ConfigComponent";
 import {LogComponent} from "./component/LogComponent";
 import {Config} from "./Config";
+import {Scene} from "./scene/Scene";
+import {MainScene} from "./scene/MainScene";
 
 export class Container{
     private wrapper: HTMLElement
@@ -17,26 +19,29 @@ export class Container{
     private config: Config
     private configComponent: ConfigComponent
     private logComponent: LogComponent
+    private currentScene: Scene
 
     constructor(wrapper: HTMLElement, config: Config) {
         this.wrapper = wrapper
         let wrapperBox: DOMRect = this.wrapper.getBoundingClientRect()
         this.width = wrapperBox.width
         this.height = wrapperBox.height
-
+        this.dpr = window.devicePixelRatio
         this.canvas = document.createElement("canvas")
         this.ctx = this.canvas.getContext("2d")
-        this.canvas.width = this.width
-        this.canvas.height = this.height
+        this.canvas.width = this.width * this.dpr
+        this.canvas.height = this.height * this.dpr
         this.canvas.style.width = `${this.width}px`
         this.canvas.style.height = `${this.height}px`
         this.ctx.scale(this.dpr, this.dpr)
         this.wrapper.appendChild(this.canvas)
         this.config = config
+        this.currentScene = new MainScene()
     }
 
     _run(){
         this.ctx.clearRect(0, 0, this.width, this.height)
+        this.currentScene.draw(this.ctx)
     }
 
     async init() {
