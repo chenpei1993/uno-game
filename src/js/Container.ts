@@ -8,6 +8,7 @@ import {MainScene} from "./scene/MainScene";
 
 export class Container{
     private wrapper: HTMLElement
+    private wrapperBox: DOMRect
     private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
     private readonly dpr: number
@@ -23,9 +24,9 @@ export class Container{
 
     constructor(wrapper: HTMLElement, config: Config) {
         this.wrapper = wrapper
-        let wrapperBox: DOMRect = this.wrapper.getBoundingClientRect()
-        this.width = wrapperBox.width
-        this.height = wrapperBox.height
+        this.wrapperBox = this.wrapper.getBoundingClientRect()
+        this.width = this.wrapperBox.width
+        this.height = this.wrapperBox.height
         this.dpr = window.devicePixelRatio
         this.canvas = document.createElement("canvas")
         this.ctx = this.canvas.getContext("2d")
@@ -57,6 +58,13 @@ export class Container{
 
         await this.imageComponent.init()
         this.logComponent.info("图片资源加载完成")
+
+        window.addEventListener("click", (e) => {
+            let x = e.clientX - this.wrapperBox.left
+            let y = e.clientY - this.wrapperBox.top
+            console.log(x, y)
+            this.currentScene.click(x, y)
+        })
     }
 
     run(){

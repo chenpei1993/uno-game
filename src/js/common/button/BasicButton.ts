@@ -27,11 +27,11 @@ export abstract class BasicButton<T> implements Button<T>{
         this.option[key] = value
     }
 
-    click(): void {
+    draw(ctx: CanvasRenderingContext2D): void {
         throw new Error("implement this method")
     }
 
-    draw(ctx: CanvasRenderingContext2D): void {
+    click(x: number, y: number): void {
         throw new Error("implement this method")
     }
 
