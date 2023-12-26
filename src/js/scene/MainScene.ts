@@ -1,24 +1,22 @@
-import {Drawable} from "../Drawable";
-import {Button} from "../common/button/Button";
-import {BasicButton} from "../common/button/BasicButton";
-import {RectButton} from "../common/button/RectButton";
 import {Point} from "../common/Point";
 import {Scene} from "./Scene";
-import {Clickable} from "../Clickable";
 import {RectRoundButton} from "../common/button/RectRoundButton";
 import {CircleButton} from "../common/button/CircleButton";
 import {Container} from "../Container";
 import {SceneType} from "../const/SceneType";
+import {SceneManager} from "./SceneManager";
 
 export class MainScene implements Scene{
     private sceneType: SceneType
     private container: Container
+    private sceneManager: SceneManager
     private startGameButton: RectRoundButton
     private settingGameButton: RectRoundButton
     private musicGameButton: CircleButton
-    constructor(sceneType: SceneType, container: Container) {
+    constructor(sceneType: SceneType, container: Container, sceneManager: SceneManager) {
         this.sceneType = sceneType
         this.container = container
+        this.sceneManager = sceneManager
         let startGameButtonPos: Point = new Point(50, 150)
         this.startGameButton = new RectRoundButton(startGameButtonPos, {
             text: "开始游戏"
@@ -48,10 +46,10 @@ export class MainScene implements Scene{
 
     click(x: number, y: number): void {
         this.startGameButton.click(x, y, () => {
-            console.log("clicked game")
+            this.sceneManager.nextScene(SceneType.Game)
         })
         this.settingGameButton.click(x, y, () => {
-            console.log("clicked setting")
+            this.sceneManager.nextScene(SceneType.Setting)
         })
     }
 

@@ -17,20 +17,16 @@ export class SceneManager{
     }
 
     init(){
-        this.sceneMap.set(SceneType.Main, new MainScene(SceneType.Main, this.container))
-        this.sceneMap.set(SceneType.Game, new GameScene(SceneType.Game, this.container))
-        this.sceneMap.set(SceneType.Setting, new SettingScene(SceneType.Setting, this.container))
+        this.sceneMap.set(SceneType.Main, new MainScene(SceneType.Main, this.container, this))
+        this.sceneMap.set(SceneType.Game, new GameScene(SceneType.Game, this.container, this))
+        this.sceneMap.set(SceneType.Setting, new SettingScene(SceneType.Setting, this.container, this))
         this.curScene = this.sceneMap.get(SceneType.Main)
     }
 
     nextScene(sceneType: SceneType){
-        if(sceneType === SceneType.Game){
-            let pre = this.curScene
-            this.curScene = this.sceneMap.get(sceneType)
-            this.preScene = pre
-        }else if(sceneType === SceneType.Setting){
-            //
-        }
+        let pre = this.curScene
+        this.curScene = this.sceneMap.get(sceneType)
+        this.preScene = pre
     }
 
     getCurScene(): Scene{
