@@ -33,6 +33,7 @@ export class CardBox{
     ]
 
     constructor() {
+        this.cards = new Array<Card>()
         for(let cardName of this.cardNames){
             let info = cardName.split("_")
             let color = UnoColorType.Wild

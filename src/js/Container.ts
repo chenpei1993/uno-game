@@ -3,9 +3,6 @@ import {ImageComponent} from "./component/ImageComponent";
 import {ConfigComponent} from "./component/ConfigComponent";
 import {LogComponent} from "./component/LogComponent";
 import {Config} from "./Config";
-import {Scene} from "./scene/Scene";
-import {MainScene} from "./scene/MainScene";
-import {GameScene} from "./scene/GameScene";
 import {SceneManager} from "./scene/SceneManager";
 
 export class Container{
