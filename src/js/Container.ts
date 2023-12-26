@@ -37,10 +37,11 @@ export class Container{
         this.ctx.scale(this.dpr, this.dpr)
         this.wrapper.appendChild(this.canvas)
         this.config = config
-        this.currentScene = new MainScene()
+        this.currentScene = new MainScene(this)
     }
 
     _run(){
+        this.animationId = window.requestAnimationFrame(() => this._run())
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.currentScene.draw(this.ctx)
     }
@@ -60,10 +61,8 @@ export class Container{
         this.logComponent.info("图片资源加载完成")
 
         window.addEventListener("click", (e) => {
-            let x = e.clientX - this.wrapperBox.left
-            let y = e.clientY - this.wrapperBox.top
-            console.log(x, y)
-            this.currentScene.click(x, y)
+            console.log(e.offsetX, e.offsetY)
+            this.currentScene.click(e.offsetX, e.offsetY, null)
         })
     }
 
@@ -78,6 +77,10 @@ export class Container{
 
     public getHeight(): number {
         return this.height
+    }
+
+    public getImage(name: string): HTMLImageElement{
+        return this.imageComponent.getImage(name)
     }
 
 

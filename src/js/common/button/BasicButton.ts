@@ -31,7 +31,7 @@ export abstract class BasicButton<T> implements Button<T>{
         throw new Error("implement this method")
     }
 
-    click(x: number, y: number): void {
+    click(x: number, y: number, func: () => void): void {
         throw new Error("implement this method")
     }
 

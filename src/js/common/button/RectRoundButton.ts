@@ -45,8 +45,13 @@ export class RectRoundButton extends BasicButton<ButtonOption>{
 
 
 
-    click(x: number, y: number): void {
-
+    click(x: number, y: number, func: () => void): void {
+        if(this.pos.x < x && x < this.pos.x + this.option.width
+             && this.pos.y < y && y < this.pos.y + this.option.height){
+            if(func){
+                func()
+            }
+        }
     }
 
 
