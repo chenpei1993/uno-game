@@ -8,13 +8,16 @@ import {Clickable} from "../Clickable";
 import {RectRoundButton} from "../common/button/RectRoundButton";
 import {CircleButton} from "../common/button/CircleButton";
 import {Container} from "../Container";
+import {SceneType} from "../const/SceneType";
 
 export class MainScene implements Scene{
+    private sceneType: SceneType
     private container: Container
     private startGameButton: RectRoundButton
     private settingGameButton: RectRoundButton
     private musicGameButton: CircleButton
-    constructor(container: Container) {
+    constructor(sceneType: SceneType, container: Container) {
+        this.sceneType = sceneType
         this.container = container
         let startGameButtonPos: Point = new Point(50, 150)
         this.startGameButton = new RectRoundButton(startGameButtonPos, {
@@ -50,6 +53,10 @@ export class MainScene implements Scene{
         this.settingGameButton.click(x, y, () => {
             console.log("clicked setting")
         })
+    }
+
+    getSceneType(): SceneType {
+        return this.sceneType;
     }
 
 }

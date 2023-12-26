@@ -5,6 +5,8 @@ import {LogComponent} from "./component/LogComponent";
 import {Config} from "./Config";
 import {Scene} from "./scene/Scene";
 import {MainScene} from "./scene/MainScene";
+import {GameScene} from "./scene/GameScene";
+import {SceneManager} from "./scene/SceneManager";
 
 export class Container{
     private wrapper: HTMLElement
@@ -20,7 +22,7 @@ export class Container{
     private config: Config
     private configComponent: ConfigComponent
     private logComponent: LogComponent
-    private currentScene: Scene
+    private sceneManager: SceneManager
 
     constructor(wrapper: HTMLElement, config: Config) {
         this.wrapper = wrapper
@@ -37,16 +39,19 @@ export class Container{
         this.ctx.scale(this.dpr, this.dpr)
         this.wrapper.appendChild(this.canvas)
         this.config = config
-        this.currentScene = new MainScene(this)
+        this.sceneManager = new SceneManager(this)
     }
 
     _run(){
         this.animationId = window.requestAnimationFrame(() => this._run())
         this.ctx.clearRect(0, 0, this.width, this.height)
-        this.currentScene.draw(this.ctx)
+        this.sceneManager.getCurScene().draw(this.ctx)
     }
 
     async init() {
+
+        this.sceneManager.init()
+
         this.logComponent = new LogComponent()
 
         this.configComponent = new ConfigComponent(this.config)
@@ -62,7 +67,7 @@ export class Container{
 
         window.addEventListener("click", (e) => {
             console.log(e.offsetX, e.offsetY)
-            this.currentScene.click(e.offsetX, e.offsetY, null)
+            this.sceneManager.getCurScene().click(e.offsetX, e.offsetY, null)
         })
     }
 
