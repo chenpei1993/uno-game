@@ -13,16 +13,24 @@ export class MainScene implements Scene{
     private startGameButton: RectRoundButton
     private settingGameButton: RectRoundButton
     private musicGameButton: CircleButton
+    private intervalY: number
+    private baseY: number
+
     constructor(sceneType: SceneType, container: Container, sceneManager: SceneManager) {
         this.sceneType = sceneType
         this.container = container
         this.sceneManager = sceneManager
-        let startGameButtonPos: Point = new Point(50, 150)
+        this.intervalY = 50
+        this.baseY = 150
+
+        let x = this.container.getWidth() / 2 - 100
+        let y = this.baseY
+        let startGameButtonPos: Point = new Point(x, y)
         this.startGameButton = new RectRoundButton(startGameButtonPos, {
             text: "开始游戏"
         })
-
-        let settingGameButtonPos: Point = new Point(50, 200)
+        y += this.intervalY
+        let settingGameButtonPos: Point = new Point(x, y)
         this.settingGameButton = new RectRoundButton(settingGameButtonPos, {
             text: "设置"
         })
