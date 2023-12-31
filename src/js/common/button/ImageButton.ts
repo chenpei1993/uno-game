@@ -3,7 +3,7 @@ import {Point} from "../Point";
 import {ButtonOption} from "./option/ButtonOption";
 import {BasicButton} from "./BasicButton";
 
-export class RectButton extends BasicButton<ButtonOption>{
+export class ImageButton extends BasicButton<ButtonOption>{
 
     constructor(pos: Point, option: ButtonOption) {
         option = option ?? {}
@@ -16,20 +16,15 @@ export class RectButton extends BasicButton<ButtonOption>{
             color: '#000',
             textColor: '#000',
             radius: 0,
+            img: null
         })
         this.updateConfig()
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.save()
-        ctx.strokeStyle = this.option.color
-        ctx.strokeRect(this.pos.x, this.pos.y, this.option.width, this.option.height)
-        ctx.font = this.option.font
-        let textBox = ctx.measureText(this.option.text)
-        let x = this.pos.x + this.option.width / 2 - textBox.width / 2
-        let h = textBox.actualBoundingBoxDescent + textBox.actualBoundingBoxAscent
-        let y = this.pos.y + this.option.height / 2 + h / 2
-        ctx.fillText(this.option.text, x, y)
+        ctx.drawImage(this.option.img, this.pos.x
+            , this.pos.y, this.option.width, this.option.height)
         ctx.restore()
     }
 

@@ -6,6 +6,7 @@ import {BasicButton} from "./BasicButton";
 export class RectRoundButton extends BasicButton<ButtonOption>{
 
     constructor(pos: Point, option: ButtonOption) {
+        option = option ?? {}
         super(pos, option)
         this.setDefaultOption({
             width: 100,
