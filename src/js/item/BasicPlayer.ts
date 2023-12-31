@@ -1,8 +1,9 @@
 import {Drawable} from "../Drawable";
 import {Card} from "./Card";
 import {Player} from "./Player";
+import {Clickable} from "../Clickable";
 
-export class BasicPlayer implements Drawable, Player{
+export class BasicPlayer implements Drawable, Clickable, Player{
     protected holdCards: Card[]
     protected width: number
     protected height: number
@@ -22,6 +23,10 @@ export class BasicPlayer implements Drawable, Player{
 
     giveACard(): Card{
         return null
+    }
+
+    click(x: number, y: number, func: () => void){
+        throw new Error("unsupported func")
     }
 
 

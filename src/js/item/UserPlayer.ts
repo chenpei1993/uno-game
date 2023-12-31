@@ -28,4 +28,29 @@ export class UserPlayer extends BasicPlayer{
             }
         }
     }
+
+    click(x: number, y: number, func: () => void){
+
+        for(let i = 0; i < this.holdCards.length; i++){
+            let card = this.holdCards[i]
+            let w = (this.holdCards.length - 1) * this.interval + card.getWidth()
+            let x1 = this.width / 2 - w / 2 + i * this.interval
+            let y1 = this.height - card.getHeight()
+
+            if(this.chosenCard === card){
+                y1 = y1 - this.chosenHeight
+            }
+
+            let cw = i === this.holdCards.length - 1 ? card.getWidth() : this.interval
+            if(x1  < x  && x < x1 + cw
+                && y1 < y && y < y1 + card.getHeight()){
+                if(this.chosenCard === card){
+                    this.chosenCard = null
+                }else{
+                    this.chosenCard = card
+                }
+                break
+            }
+        }
+    }
 }

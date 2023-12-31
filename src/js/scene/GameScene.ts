@@ -54,8 +54,9 @@ export class GameScene implements Scene{
     click(x: number, y: number, func: () => void): void {
         this.closeButton.click(x,y, () => {
             this.sceneManager.nextScene(SceneType.Main)
-
         })
+
+        this.player.click(x, y, null)
     }
 
     draw(ctx: CanvasRenderingContext2D): void {

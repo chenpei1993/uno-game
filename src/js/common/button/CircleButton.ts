@@ -22,7 +22,6 @@ export class CircleButton extends BasicButton<ButtonOption>{
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        console.log(121)
         ctx.save()
 
         ctx.font = this.option.font
