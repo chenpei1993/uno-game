@@ -39,7 +39,7 @@ export class Container{
     }
 
     _run(){
-        this.animationId = window.requestAnimationFrame(() => this._run())
+        // this.animationId = window.requestAnimationFrame(() => this._run())
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.sceneManager.getCurScene().draw(this.ctx)
     }
