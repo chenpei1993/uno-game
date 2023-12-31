@@ -35,10 +35,10 @@ export class MainScene implements Scene{
     draw(ctx: CanvasRenderingContext2D): void {
         let backgroundImg = this.container.getImage("Table_2.png")
         ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
-        let img = this.container.getImage("Banner.png")
-        let imgW = 100
-        let imgX = this.container.getWidth() / 2 - imgW / 2
-        ctx.drawImage(img, imgX,0, imgW, 80)
+        // let img = this.container.getImage("Banner.png")
+        // let imgW = 100
+        // let imgX = this.container.getWidth() / 2 - imgW / 2
+        // ctx.drawImage(img, imgX,0, imgW, 80)
         this.startGameButton.draw(ctx)
         this.settingGameButton.draw(ctx)
         // this.musicGameButton.draw(ctx)
