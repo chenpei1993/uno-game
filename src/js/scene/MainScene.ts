@@ -5,6 +5,7 @@ import {CircleButton} from "../common/button/CircleButton";
 import {Container} from "../Container";
 import {SceneType} from "../const/SceneType";
 import {SceneManager} from "./SceneManager";
+import {SnowEffect} from "../effect/SnowEffect";
 
 export class MainScene implements Scene{
     private sceneType: SceneType
@@ -13,6 +14,8 @@ export class MainScene implements Scene{
     private startGameButton: RectRoundButton
     private settingGameButton: RectRoundButton
     private musicGameButton: CircleButton
+    private showEffect: SnowEffect
+
     constructor(sceneType: SceneType, container: Container, sceneManager: SceneManager) {
         this.sceneType = sceneType
         this.container = container
@@ -27,6 +30,8 @@ export class MainScene implements Scene{
             text: "设置"
         })
 
+        this.showEffect = new SnowEffect(this.container.getWidth(), this.container.getHeight(), 30, 100, 3)
+
         // let musicButtonPos: Point = new Point(50, 300)
         // this.musicGameButton = new CircleButton(musicButtonPos, {
         //     text: "音"
@@ -35,10 +40,8 @@ export class MainScene implements Scene{
     draw(ctx: CanvasRenderingContext2D): void {
         let backgroundImg = this.container.getImage("Table_2")
         ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
-        // let img = this.container.getImage("Banner.png")
-        // let imgW = 100
-        // let imgX = this.container.getWidth() / 2 - imgW / 2
-        // ctx.drawImage(img, imgX,0, imgW, 80)
+        this.showEffect.draw(ctx)
+
         this.startGameButton.draw(ctx)
         this.settingGameButton.draw(ctx)
         // this.musicGameButton.draw(ctx)

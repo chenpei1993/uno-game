@@ -4,6 +4,7 @@ import {ConfigComponent} from "./component/ConfigComponent";
 import {LogComponent} from "./component/LogComponent";
 import {Config} from "./Config";
 import {SceneManager} from "./scene/SceneManager";
+import {System} from "./System";
 
 export class Container{
     private wrapper: HTMLElement
@@ -40,6 +41,7 @@ export class Container{
 
     _run(){
         this.animationId = window.requestAnimationFrame(() => this._run())
+        System.setDeltaTime(Date.now())
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.sceneManager.getCurScene().draw(this.ctx)
     }
