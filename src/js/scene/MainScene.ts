@@ -33,7 +33,7 @@ export class MainScene implements Scene{
         // })
     }
     draw(ctx: CanvasRenderingContext2D): void {
-        let backgroundImg = this.container.getImage("Table_2.png")
+        let backgroundImg = this.container.getImage("Table_2")
         ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
         // let img = this.container.getImage("Banner.png")
         // let imgW = 100

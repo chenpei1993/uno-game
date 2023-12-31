@@ -36,7 +36,6 @@ export class Container{
         this.ctx.scale(this.dpr, this.dpr)
         this.wrapper.appendChild(this.canvas)
         this.config = config
-        this.sceneManager = new SceneManager(this)
     }
 
     _run(){
@@ -47,7 +46,6 @@ export class Container{
 
     async init() {
 
-        this.sceneManager.init()
 
         this.logComponent = new LogComponent()
 
@@ -62,14 +60,17 @@ export class Container{
         await this.imageComponent.init()
         this.logComponent.info("图片资源加载完成")
 
+        this.sceneManager = new SceneManager(this)
+        this.sceneManager.init()
+
         window.addEventListener("click", (e) => {
             console.log(e.offsetX, e.offsetY)
             this.sceneManager.getCurScene().click(e.offsetX, e.offsetY, null)
         })
     }
 
-    run(){
-        this.init()
+    async run(){
+        await this.init()
         this.animationId = window.requestAnimationFrame(() => this._run())
     }
 

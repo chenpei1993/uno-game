@@ -4,7 +4,8 @@ import {ButtonOption} from "./option/ButtonOption";
 import {BasicButton} from "./BasicButton";
 
 export class CircleButton extends BasicButton<ButtonOption>{
-
+    private ox: number
+    private oy: number
     constructor(pos: Point, option: ButtonOption) {
         option = option ?? {}
         super(pos, option)
@@ -21,28 +22,35 @@ export class CircleButton extends BasicButton<ButtonOption>{
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
+        console.log(121)
         ctx.save()
 
         ctx.font = this.option.font
         let textBox = ctx.measureText(this.option.text)
-        let x = this.pos.x + this.option.width / 2 - textBox.width / 2
+        this.ox = this.pos.x + this.option.width / 2 - textBox.width / 2
         let h = textBox.actualBoundingBoxDescent + textBox.actualBoundingBoxAscent
-        let y = this.pos.y + this.option.height / 2 - h / 2
+        this.oy = this.pos.y + this.option.height / 2 - h / 2
         ctx.beginPath()
         ctx.strokeStyle = this.option.color
-        ctx.arc(x, y, this.option.radius, 0, Math.PI * 2)
+        ctx.arc(this.ox , this.oy, this.option.radius, 0, Math.PI * 2)
         ctx.stroke()
         ctx.closePath()
 
+        ctx.fillStyle = this.option.textColor
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        ctx.fillText(this.option.text, x, y)
+        ctx.fillText(this.option.text, this.ox , this.oy)
         ctx.restore()
     }
 
 
 
-    click(x: number, y: number): void {
+    click(x: number, y: number, func: () => void): void {
+        if(Math.pow(this.ox - x, 2) + Math.pow(this.oy - y, 2) <= Math.pow(this.option.radius, 2)){
+            if(func){
+                func()
+            }
+        }
 
     }
 

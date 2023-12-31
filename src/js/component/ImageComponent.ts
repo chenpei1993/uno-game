@@ -33,7 +33,8 @@ export class ImageComponent implements Component{
                 this.log.error(name + " 加载失败！")
             }
             img.src = this.url + '/' + name
-            this.imageMap.set(name, img)
+            let realName = name.substring(0, name.indexOf("."))
+            this.imageMap.set(realName, img)
         })
     }
 

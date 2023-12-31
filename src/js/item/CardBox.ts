@@ -1,9 +1,12 @@
 import {Card} from "./Card";
 import {UnoColorType} from "../const/UnoColorType";
 import {UnoCardType} from "../const/UnoCardType";
+import {Container} from "../Container";
 
 export class CardBox{
     private readonly cards: Card[]
+    private readonly container: Container
+    private readonly prefix: string
 
     private cardNames: string[] = [
         "Blue_0",
@@ -26,14 +29,16 @@ export class CardBox{
         "Green_Draw","Green_Reverse","Green_Skip",
         "Green_1","Green_2","Green_3","Green_4","Green_5","Green_6","Green_7","Green_8","Green_9",
         "Green_1","Green_2","Green_3","Green_4","Green_5","Green_6","Green_7","Green_8","Green_9",
-        "Wild","Wild_Color","Wild_Reverse","Wild_Draw",
-        "Wild","Wild_Color","Wild_Reverse","Wild_Draw",
-        "Wild","Wild_Color","Wild_Reverse","Wild_Draw",
-        "Wild","Wild_Color","Wild_Reverse","Wild_Draw"
+        "Wild_Color","Wild_Draw",
+        "Wild_Color","Wild_Draw",
+        "Wild_Color","Wild_Draw",
+        "Wild_Color","Wild_Draw"
     ]
 
-    constructor() {
+    constructor(container: Container, cardWidth: number, cardHeight: number) {
+        this.container = container
         this.cards = new Array<Card>()
+        this.prefix = "card/"
         for(let cardName of this.cardNames){
             let info = cardName.split("_")
             let color = UnoColorType.Wild
@@ -61,7 +66,8 @@ export class CardBox{
                 name = info[1]
             }
 
-            let card = new Card(name, type, color)
+            let img = this.container.getImage(this.prefix + cardName)
+            let card = new Card(name, type, color, img, cardWidth, cardHeight)
             this.cards.push(card)
         }
     }
