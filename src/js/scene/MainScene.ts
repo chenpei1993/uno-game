@@ -6,6 +6,7 @@ import {Container} from "../Container";
 import {SceneType} from "../const/SceneType";
 import {SceneManager} from "./SceneManager";
 import {SnowEffect} from "../effect/SnowEffect";
+import {TextTag} from "../common/text/TextTag";
 
 export class MainScene implements Scene{
     private sceneType: SceneType
@@ -16,16 +17,28 @@ export class MainScene implements Scene{
     private musicGameButton: CircleButton
     private showEffect: SnowEffect
 
+    private intervalY: number
+    private baseY: number
+    private title: TextTag
+
     constructor(sceneType: SceneType, container: Container, sceneManager: SceneManager) {
         this.sceneType = sceneType
         this.container = container
         this.sceneManager = sceneManager
-        let startGameButtonPos: Point = new Point(50, 150)
+        this.intervalY = 50
+        this.baseY = 150
+
+
+        let x = this.container.getWidth() / 2 - 100 / 2
+        let y = this.baseY
+        this.title = new TextTag(new Point(this.container.getWidth() / 2, y), "Uno", null, "100px serif")
+        y += this.intervalY
+        let startGameButtonPos: Point = new Point(x, y)
         this.startGameButton = new RectRoundButton(startGameButtonPos, {
             text: "开始游戏"
         })
-
-        let settingGameButtonPos: Point = new Point(50, 200)
+        y += this.intervalY
+        let settingGameButtonPos: Point = new Point(x, y)
         this.settingGameButton = new RectRoundButton(settingGameButtonPos, {
             text: "设置"
         })
@@ -40,7 +53,9 @@ export class MainScene implements Scene{
     draw(ctx: CanvasRenderingContext2D): void {
         let backgroundImg = this.container.getImage("Table_2")
         ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
+
         this.showEffect.draw(ctx)
+        this.title.draw(ctx)
 
         this.startGameButton.draw(ctx)
         this.settingGameButton.draw(ctx)
