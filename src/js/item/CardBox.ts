@@ -7,6 +7,8 @@ export class CardBox{
     private readonly cards: Card[]
     private readonly container: Container
     private readonly prefix: string
+    private readonly cardWidth: number
+    private readonly cardHeight: number
 
     private cardNames: string[] = [
         "Blue_0",
@@ -39,6 +41,8 @@ export class CardBox{
         this.container = container
         this.cards = new Array<Card>()
         this.prefix = "card/"
+        this.cardWidth = cardWidth
+        this.cardHeight = cardHeight
         for(let cardName of this.cardNames){
             let info = cardName.split("_")
             let color = UnoColorType.Wild
@@ -76,5 +80,12 @@ export class CardBox{
         return this.cards
     }
 
+    getCardHeight() : number{
+        return this.cardHeight
+    }
+
+    getCardWidth() : number{
+        return this.cardWidth
+    }
 
 }
