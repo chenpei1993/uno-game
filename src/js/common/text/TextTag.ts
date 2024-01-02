@@ -18,9 +18,9 @@ export class TextTag implements Drawable{
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.save()
         ctx.font = this.font
-        let box = ctx.measureText("Uno")
+        let box = ctx.measureText(this.text)
         let x = this.pos.x - box.width / 2
-        ctx.fillText("Uno", x, this.pos.y)
+        ctx.fillText(this.text, x, this.pos.y)
         ctx.restore()
     }
 
