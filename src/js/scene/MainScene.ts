@@ -43,7 +43,7 @@ export class MainScene implements Scene{
             text: "设置"
         })
 
-        this.showEffect = new SnowEffect(this.container.getWidth(), this.container.getHeight(), 30, 100, 3)
+        this.showEffect = new SnowEffect(this.container.getWidth(), this.container.getHeight(), 40, 100, 3)
 
         // let musicButtonPos: Point = new Point(50, 300)
         // this.musicGameButton = new CircleButton(musicButtonPos, {

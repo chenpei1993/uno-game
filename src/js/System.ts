@@ -1,4 +1,3 @@
-import {Component} from "./component/Component";
 
 export class System {
     private static delta: number
