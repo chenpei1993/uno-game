@@ -7,7 +7,7 @@ import {Container} from "../Container";
 import {ArrayUtil} from "../util/ArrayUtil";
 import {Player} from "./Player";
 
-export class Dealer implements Player{
+export class Dealer implements Player, Drawable{
 
     private cardBox: CardBox
     private cards: Card[]
@@ -20,6 +20,10 @@ export class Dealer implements Player{
         ArrayUtil.shuffle(this.cards)
         this.usedCards = new Array<Card>()
         this.usedCardIdx = 0
+    }
+
+    draw(ctx: CanvasRenderingContext2D): void {
+        throw new Error("Method not implemented.");
     }
 
     getACard(card: Card): void {

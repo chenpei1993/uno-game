@@ -69,6 +69,7 @@ export class GameScene implements Scene{
         this.leftPlayer.draw(ctx)
         this.topPlayer.draw(ctx)
         this.rightPlayer.draw(ctx)
+        // this.dealer.draw(ctx)
     }
 
     getSceneType(): SceneType {
