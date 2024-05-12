@@ -1,18 +1,39 @@
 import {BasicPlayer} from "./BasicPlayer";
 import {Card} from "./Card";
 import {Dealer} from "./Dealer";
+import {RectRoundButton} from "../common/button/RectRoundButton";
+import {Point} from "../common/Point";
 
 export class UserPlayer extends BasicPlayer{
 
     private chosenCard: Card
+    private chosenCardIdx: number
     private chosenHeight: number
     private interval: number
+    private playButton: RectRoundButton
+    private punishButton: RectRoundButton
 
     constructor(width: number, height: number, dealer: Dealer) {
         super(width, height,dealer)
         this.chosenCard = null
         this.chosenHeight = 10
         this.interval = 20
+        let mid = width / 2
+        let interval = 20
+        this.playButton = new RectRoundButton(new Point(mid + interval, 490), {
+            text:"出牌",
+            font: "28px ",
+            textColor: "black",
+            width: 50,
+            color: "black"
+        })
+        this.punishButton = new RectRoundButton(new Point(mid - 3 *interval, 490), {
+            text:"惩罚",
+            font: "28px ",
+            textColor: "red",
+            width: 50,
+            color: "red"
+        })
     }
 
     draw(ctx: CanvasRenderingContext2D) {
@@ -20,6 +41,7 @@ export class UserPlayer extends BasicPlayer{
         let w = (this.holdCards.length - 1) * this.interval + card.getWidth()
         let x = this.width / 2 - w / 2
         let y = this.height - card.getHeight()
+
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]
             if(this.chosenCard === card){
@@ -28,9 +50,29 @@ export class UserPlayer extends BasicPlayer{
                 ctx.drawImage(card.getImage(), x + i * this.interval, y, card.getWidth(), card.getHeight())
             }
         }
+        this.playButton.draw(ctx)
+        this.punishButton.draw(ctx)
+
     }
 
     click(x: number, y: number, func: () => void){
+        this.playButton.click(x, y, () => {
+            if(this.chosenCard != null){
+                let res = this.dealer.getACard(this.chosenCard)
+                if(res){
+                    this.holdCards.splice(this.chosenCardIdx, 1)
+                    this.chosenCard = null
+                }else{
+
+                }
+                console.log(this.chosenCard)
+            }else{
+
+            }
+        })
+
+        this.punishButton.click(x, y, () => {
+        })
 
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]
@@ -47,8 +89,10 @@ export class UserPlayer extends BasicPlayer{
                 && y1 < y && y < y1 + card.getHeight()){
                 if(this.chosenCard === card){
                     this.chosenCard = null
+                    this.chosenCardIdx = null
                 }else{
                     this.chosenCard = card
+                    this.chosenCardIdx = i
                 }
                 break
             }

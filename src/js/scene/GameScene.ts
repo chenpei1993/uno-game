@@ -28,7 +28,7 @@ export class GameScene implements Scene{
         //TODO
         let w = this.container.getWidth()
         let h =  this.container.getHeight()
-        this.dealer = new Dealer(this.container, 50, 60)
+        this.dealer = new Dealer(this.container, new Point(w / 2- 5 * 50, 250), 50, 60)
         this.player = new UserPlayer(w, h, this.dealer)
         this.leftPlayer = new LeftPlayer(w, h, this.dealer)
         this.rightPlayer = new RightPlayer(w, h, this.dealer)
@@ -56,7 +56,9 @@ export class GameScene implements Scene{
             this.sceneManager.nextScene(SceneType.Main)
         })
 
-        this.player.click(x, y, null)
+        this.player.click(x, y, () => {
+            this.player.click(x, y, null)
+        })
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
@@ -69,7 +71,7 @@ export class GameScene implements Scene{
         this.leftPlayer.draw(ctx)
         this.topPlayer.draw(ctx)
         this.rightPlayer.draw(ctx)
-        // this.dealer.draw(ctx)
+        this.dealer.draw(ctx)
     }
 
     getSceneType(): SceneType {

@@ -40,6 +40,7 @@ export class RectRoundButton extends BasicButton<ButtonOption>{
         let x = this.pos.x + this.option.width / 2 - textBox.width / 2
         let h = textBox.actualBoundingBoxDescent + textBox.actualBoundingBoxAscent
         let y = this.pos.y + this.option.height / 2 + h / 2
+        ctx.fillStyle = this.option.textColor
         ctx.fillText(this.option.text, x, y)
         ctx.restore()
     }
