@@ -29,10 +29,10 @@ export class GameScene implements Scene{
         let w = this.container.getWidth()
         let h =  this.container.getHeight()
         this.dealer = new Dealer(this.container, 50, 60)
-        this.player = new UserPlayer(w, h)
-        this.leftPlayer = new LeftPlayer(w, h)
-        this.rightPlayer = new RightPlayer(w, h)
-        this.topPlayer = new TopPlayer(w, h)
+        this.player = new UserPlayer(w, h, this.dealer)
+        this.leftPlayer = new LeftPlayer(w, h, this.dealer)
+        this.rightPlayer = new RightPlayer(w, h, this.dealer)
+        this.topPlayer = new TopPlayer(w, h, this.dealer)
         this.closeButton = new CircleButton(new Point(w - 60, 0), {
             text:"x",
             font: "28px ",

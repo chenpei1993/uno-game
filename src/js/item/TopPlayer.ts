@@ -1,10 +1,11 @@
 import {BasicPlayer} from "./BasicPlayer";
 import {Card} from "./Card";
+import {Dealer} from "./Dealer";
 
 export class TopPlayer extends BasicPlayer{
     private interval: number
-    constructor(width: number, height: number) {
-        super(width, height)
+    constructor(width: number, height: number, dealer: Dealer) {
+        super(width, height, dealer)
         this.interval = 20
     }
 

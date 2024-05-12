@@ -35,7 +35,7 @@ export class SettingScene implements Scene{
 
         this.intervalY = 50
         this.baseY = 150
-        let margin = 100
+        let margin = 50
 
 
         let x = this.container.getWidth() / 2 - 100 / 2
@@ -43,12 +43,12 @@ export class SettingScene implements Scene{
         let w = this.container.getWidth()
         let h =  this.container.getHeight()
 
-        this.musicTag = new TextTag(new Point(x, 50), "音乐", null, null)
+        this.musicTag = new TextTag(new Point(x, 70), "音乐", null, null)
         this.music = new SwitchButton(new Point(x + margin, 50), null)
-        this.volumeTag = new TextTag(new Point(x, 150), "音量", null, null)
-        this.volume = new SliderButton(new Point(x + margin, 150), null)
-        this.fpsTag = new TextTag(new Point(x, 200), "显示FPS", null, null)
-        this.fps = new SwitchButton(new Point(x + margin, 200), null)
+        this.volumeTag = new TextTag(new Point(x, 120), "音量", null, null)
+        this.volume = new SliderButton(new Point(x + margin, 100), null)
+        this.fpsTag = new TextTag(new Point(x, 170), "显示FPS", null, null)
+        this.fps = new SwitchButton(new Point(x + margin, 150), null)
 
         this.closeButton = new CircleButton(new Point(w - 60, 0), {
             text:"x",
