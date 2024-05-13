@@ -18,7 +18,8 @@ export class Dealer implements Player, Drawable{
     private interval: number
     private pos: Point
     private alerts: AlertTag[]
-
+    private punishCardNum: number
+    private defaultPunishCardNum: number = 2
 
     constructor(container: Container,pos: Point, cardWidth: number, cardHeight: number) {
         this.cardBox = new CardBox(container, cardWidth, cardHeight)
@@ -29,6 +30,7 @@ export class Dealer implements Player, Drawable{
         this.usedCardIdx = 0
         this.interval = 20
         this.pos = pos
+        this.punishCardNum = this.defaultPunishCardNum
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
@@ -59,5 +61,14 @@ export class Dealer implements Player, Drawable{
         let card = this.cards[this.usedCardIdx]
         this.usedCardIdx++
         return card
+    }
+
+    givePunishCard(): Card[]{
+        let cards:Card[] = []
+        for(let i = 0; i < this.punishCardNum; i++){
+            cards.push(this.giveACard())
+        }
+        this.punishCardNum = this.defaultPunishCardNum
+        return cards
     }
 }

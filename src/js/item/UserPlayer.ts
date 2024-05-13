@@ -65,6 +65,8 @@ export class UserPlayer extends BasicPlayer{
         })
 
         this.punishButton.click(x, y, () => {
+            let cards = this.dealer.givePunishCard()
+            this.holdCards = this.holdCards.concat(cards)
         })
 
         for(let i = 0; i < this.holdCards.length; i++){
