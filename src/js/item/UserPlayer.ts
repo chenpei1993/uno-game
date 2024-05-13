@@ -57,17 +57,10 @@ export class UserPlayer extends BasicPlayer{
 
     click(x: number, y: number, func: () => void){
         this.playButton.click(x, y, () => {
-            if(this.chosenCard != null){
-                let res = this.dealer.getACard(this.chosenCard)
-                if(res){
-                    this.holdCards.splice(this.chosenCardIdx, 1)
-                    this.chosenCard = null
-                }else{
-
-                }
-                console.log(this.chosenCard)
-            }else{
-
+            let res = this.dealer.getACard(this.chosenCard)
+            if(res){
+                this.holdCards.splice(this.chosenCardIdx, 1)
+                this.chosenCard = null
             }
         })
 

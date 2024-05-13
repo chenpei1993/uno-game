@@ -7,6 +7,7 @@ import {Container} from "../Container";
 import {ArrayUtil} from "../util/ArrayUtil";
 import {Player} from "./Player";
 import {Point} from "../common/Point";
+import {AlertTag} from "../common/text/AlertTag";
 
 export class Dealer implements Player, Drawable{
 
@@ -16,9 +17,12 @@ export class Dealer implements Player, Drawable{
     private usedCardIdx: number
     private interval: number
     private pos: Point
+    private alerts: AlertTag[]
+
 
     constructor(container: Container,pos: Point, cardWidth: number, cardHeight: number) {
         this.cardBox = new CardBox(container, cardWidth, cardHeight)
+        this.alerts = []
         this.cards = this.cardBox.getCards()
         ArrayUtil.shuffle(this.cards)
         this.usedCards = new Array<Card>()
@@ -34,10 +38,19 @@ export class Dealer implements Player, Drawable{
             ctx.drawImage(card.getImage(), this.pos.x + i * this.interval,
                 this.pos.y, card.getWidth(), card.getHeight())
         }
+
+        for(let i = 0; i < this.alerts.length; i++){
+            this.alerts[i].draw(ctx)
+            this.alerts[i].addTime()
+        }
     }
 
     getACard(card: Card): boolean {
         //TODO  检查开始是否符合规则
+        if(card === null){
+            this.alerts.push(new AlertTag("出牌不能为空!"))
+            return false
+        }
         this.usedCards.push(card)
         return true
     }
