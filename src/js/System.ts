@@ -18,6 +18,10 @@ export class System {
         return System.delta ?? 0
     }
 
+    public static getTime(): number{
+        return System.time ?? 0
+    }
+
 
     public static getFPS(): number{
         return System.fps
