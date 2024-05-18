@@ -20,14 +20,14 @@ export class UserPlayer extends BasicPlayer{
         this.interval = 20
         let mid = width / 2
         let interval = 20
-        this.playButton = new RectRoundButton(new Point(mid + interval, 490), {
+        this.playButton = new RectRoundButton(new Point(mid + interval, height - 100), {
             text:"出牌",
             font: "28px ",
             textColor: "black",
             width: 50,
             color: "black"
         })
-        this.punishButton = new RectRoundButton(new Point(mid - 3 *interval, 490), {
+        this.punishButton = new RectRoundButton(new Point(mid - 3 *interval, height - 100), {
             text:"惩罚",
             font: "28px ",
             textColor: "red",
@@ -41,7 +41,6 @@ export class UserPlayer extends BasicPlayer{
         let w = (this.holdCards.length - 1) * this.interval + card.getWidth()
         let x = this.width / 2 - w / 2
         let y = this.height - card.getHeight()
-
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]
             if(this.chosenCard === card){
