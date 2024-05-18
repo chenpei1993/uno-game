@@ -4,4 +4,5 @@ import {SceneType} from "../const/SceneType";
 
 export interface Scene extends Drawable, Clickable{
     getSceneType():SceneType
+    init(): void
 }

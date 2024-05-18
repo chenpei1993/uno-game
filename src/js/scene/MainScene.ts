@@ -50,6 +50,11 @@ export class MainScene implements Scene{
         //     text: "音"
         // })
     }
+
+    init(){
+
+    }
+
     draw(ctx: CanvasRenderingContext2D): void {
         let backgroundImg = this.container.getImage("Table_2")
         ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
@@ -64,7 +69,8 @@ export class MainScene implements Scene{
 
     click(x: number, y: number): void {
         this.startGameButton.click(x, y, () => {
-            this.sceneManager.nextScene(SceneType.Game)
+            let scene = this.sceneManager.nextScene(SceneType.Game)
+            scene.init()
         })
         this.settingGameButton.click(x, y, () => {
             this.sceneManager.nextScene(SceneType.Setting)

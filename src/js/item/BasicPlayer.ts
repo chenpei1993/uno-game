@@ -20,14 +20,24 @@ export class BasicPlayer implements Drawable, Clickable, Player{
         throw new Error("unsupported func")
     }
 
+    reset() {
+        this.holdCards = new Array<Card>()
+    }
+
     getACard(card: Card): boolean{
         this.holdCards.push(card)
+        return true
+    }
+
+    getCards(cards: Card[]): boolean{
+        this.holdCards = this.holdCards.concat(cards)
         return true
     }
 
     giveACard(): Card{
         return null
     }
+
 
     click(x: number, y: number, func: () => void){
         throw new Error("unsupported func")

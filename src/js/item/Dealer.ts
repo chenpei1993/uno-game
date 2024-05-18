@@ -5,11 +5,10 @@ import {Container} from "../Container";
 import {ArrayUtil} from "../util/ArrayUtil";
 import {Player} from "./Player";
 import {Point} from "../common/Point";
-import {AlertTag} from "../common/text/AlertTag";
-import {CircleButton} from "../common/button/CircleButton";
-import {System} from "../System";
 import {AlertManager} from "../common/text/AlertManager";
 import {ClockTimer} from "../common/text/ClockTimer";
+import {BasicPlayer} from "./BasicPlayer";
+import * as console from "console";
 
 export class Dealer implements Player, Drawable{
 
@@ -25,10 +24,12 @@ export class Dealer implements Player, Drawable{
     private turn: number
     private alertManager: AlertManager
     private timer: ClockTimer
-    private players: Map<string, Player>
+    private timers: (()=>ClockTimer)[]
+    private players: Map<string, BasicPlayer>
     private width: number
     private height: number
     private padding: number
+    private names: string[] = ["user",  "left", "top", "right"]
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
         this.cardBox = new CardBox(container, cardWidth, cardHeight)
@@ -36,30 +37,48 @@ export class Dealer implements Player, Drawable{
         ArrayUtil.shuffle(this.cards)
         this.usedCards = new Array<Card>()
         this.usedCardIdx = 0
+        this.clockWise = true
+        this.punishCardNum = this.defaultPunishCardNum
+
         this.interval = 20
         this.padding = 50
         this.pos = pos
         this.width = width
         this.height = height
-        this.punishCardNum = this.defaultPunishCardNum
-        this.turn = 0
         this.alertManager = new AlertManager(container.getWidth() / 2)
-        this.players = new Map<string, Player>()
-        this.timer = new ClockTimer(new Point(this.pos.x + this.width / 2, this.pos.y + this.height - 50), 30)
+        this.players = new Map<string, BasicPlayer>()
+        let defaultTime: number = 10
+        this.timers = [
+            () => (new ClockTimer(new Point(this.pos.x + this.width / 2, this.pos.y + this.height - 50), defaultTime)),
+            () => (new ClockTimer(new Point(this.pos.x + 50, this.pos.y + this.height  / 2), defaultTime)),
+            () => (new ClockTimer(new Point(this.pos.x + this.width / 2, this.pos.y + 50), defaultTime)),
+            () => (new ClockTimer(new Point(this.pos.x + this.width - 50, this.pos.y + this.height  / 2), defaultTime)),
+        ]
+    }
+
+    newGame(){
+        for(let e of this.players.values()){
+            e.reset()
+        }
+        for(let i = 0; i < 7; i++){
+            let player = this.players.get(this.names[0])
+            player.getACard(this.giveACard())
+            player = this.players.get(this.names[1])
+            player.getACard(this.giveACard())
+            player = this.players.get(this.names[2])
+            player.getACard(this.giveACard())
+            player = this.players.get(this.names[3])
+            player.getACard(this.giveACard())
+        }
+        this.turn = 0
+        this.timer = this.timers[this.turn]()
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        console.log(this.turn)
-
-        if(this.turn == 0){
-            let player = this.players.get("user")
-            // if(this.timer)
-        }else if(this.turn == 1){
-
-        }else if(this.turn == 2){
-
-        }else{
-
+        if(!this.timer.isLive()){
+            let player = this.players.get(this.names[this.turn])
+            player.getCards(this.givePunishCard())
+            this.timer = this.timers[this.turn]()
         }
 
         let x = this.pos.x + this.padding
@@ -70,9 +89,10 @@ export class Dealer implements Player, Drawable{
             ctx.drawImage(card.getImage(), x + i * this.interval,
                 y, card.getWidth(), card.getHeight())
         }
-        this.timer.draw(ctx)
+        if(this.timer){
+            this.timer.draw(ctx)
+        }
         this.alertManager.draw(ctx)
-        // this.timer.draw(ctx)
 
     }
 
@@ -111,7 +131,10 @@ export class Dealer implements Player, Drawable{
         }
     }
 
-    register(name: string, player: Player){
+    register(name: string, player: BasicPlayer){
         this.players.set(name, player)
+    }
+
+    reset(): void {
     }
 }

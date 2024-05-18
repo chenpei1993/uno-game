@@ -58,6 +58,8 @@ export class SettingScene implements Scene{
         })
     }
 
+    init(){}
+
     click(x: number, y: number, func: () => void): void {
         this.music.click(x, y, () => {
 

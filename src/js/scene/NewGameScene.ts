@@ -11,7 +11,7 @@ import {RightPlayer} from "../item/RightPlayer";
 import {TopPlayer} from "../item/TopPlayer";
 import {CircleButton} from "../common/button/CircleButton";
 
-export class GameScene implements Scene{
+export class NewGameScene implements Scene{
     private sceneType: SceneType
     private container: Container
     private sceneManager: SceneManager
@@ -33,27 +33,21 @@ export class GameScene implements Scene{
         this.player = new UserPlayer(w, h, this.dealer)
         this.dealer.register("user", this.player)
         this.leftPlayer = new LeftPlayer(w, h, this.dealer)
-        this.dealer.register("left", this.player)
+        this.dealer.register("left", this.leftPlayer)
         this.rightPlayer = new RightPlayer(w, h, this.dealer)
-        this.dealer.register("right", this.player)
+        this.dealer.register("right", this.rightPlayer)
         this.topPlayer = new TopPlayer(w, h, this.dealer)
-        this.dealer.register("top", this.player)
+        this.dealer.register("top", this.topPlayer)
         this.closeButton = new CircleButton(new Point(w - 60, 0), {
             text:"x",
             font: "28px ",
             textColor: "red",
             color: "rgba(0,0,0,0)"
         })
-        this.init()
     }
 
     init(){
-        for(let i = 0; i < 7; i++){
-            this.player.getACard(this.dealer.giveACard())
-            this.rightPlayer.getACard(this.dealer.giveACard())
-            this.topPlayer.getACard(this.dealer.giveACard())
-            this.leftPlayer.getACard(this.dealer.giveACard())
-        }
+        this.dealer.newGame()
     }
 
     click(x: number, y: number, func: () => void): void {
