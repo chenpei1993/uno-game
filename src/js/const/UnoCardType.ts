@@ -4,4 +4,6 @@ export enum UnoCardType{
     "Reverse" = "Reverse",
     "Skip" = "Skip",
     "Color" = "Color",
+    "Wild" = "Wild",
+    "Wild_Draw" = "Wild_Draw",
 }

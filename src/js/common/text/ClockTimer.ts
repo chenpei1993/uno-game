@@ -20,7 +20,6 @@ export class ClockTimer implements Drawable{
             radius: 10
         }
         this.time = System.getTime()
-        console.log(this.time)
         this.expireTime = expireTime
 
     }

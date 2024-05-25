@@ -1,13 +1,16 @@
 import {BasicPlayer} from "./BasicPlayer";
 import {Card} from "./Card";
 import {Dealer} from "./Dealer";
+import {SimpleAI} from "../strategy/SimpleAI";
+import {AI} from "../strategy/AI";
+import {RobotPlayer} from "./RobotPlayer";
 
-export class RightPlayer extends BasicPlayer{
+export class RightPlayer extends RobotPlayer{
 
     private interval: number
 
-    constructor(width: number, height: number, dealer: Dealer) {
-        super(width, height, dealer)
+    constructor(name: string,width: number, height: number, dealer: Dealer, ai: AI) {
+        super(name, width, height, dealer, ai)
         this.interval = 20
     }
 
@@ -26,4 +29,5 @@ export class RightPlayer extends BasicPlayer{
         ctx.restore()
 
     }
+
 }

@@ -31,6 +31,16 @@ export class Card {
         return this.height
     }
 
+    getType(): UnoCardType{
+        return this.type;
+    }
 
+    getColor(): UnoColorType{
+        return this.color;
+    }
+
+    getName(): string {
+        return this.name
+    }
 
 }

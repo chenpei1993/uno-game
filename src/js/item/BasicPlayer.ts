@@ -9,11 +9,13 @@ export class BasicPlayer implements Drawable, Clickable, Player{
     protected holdCards: Card[]
     protected width: number
     protected height: number
-    constructor(width: number, height: number, dealer: Dealer) {
+    protected name: string
+    constructor(name: string, width: number, height: number, dealer: Dealer) {
         this.holdCards = new Array<Card>()
         this.width = width
         this.height = height
         this.dealer = dealer
+        this.name = name
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
@@ -43,5 +45,15 @@ export class BasicPlayer implements Drawable, Clickable, Player{
         throw new Error("unsupported func")
     }
 
+    getInfoFromDeal(cards: Card[]): void {
+
+    }
+
+    getName(): string {
+        return this.name
+    }
+
+    myTurn(): void {
+    }
 
 }

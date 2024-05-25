@@ -13,8 +13,8 @@ export class UserPlayer extends BasicPlayer{
     private playButton: RectRoundButton
     private punishButton: RectRoundButton
 
-    constructor(width: number, height: number, dealer: Dealer) {
-        super(width, height,dealer)
+    constructor(name: string, width: number, height: number, dealer: Dealer) {
+        super(name, width, height,dealer)
         this.chosenCard = null
         this.chosenHeight = 10
         this.interval = 20
@@ -56,7 +56,7 @@ export class UserPlayer extends BasicPlayer{
 
     click(x: number, y: number, func: () => void){
         this.playButton.click(x, y, () => {
-            let res = this.dealer.getACard(this.chosenCard)
+            let res = this.dealer.getACard(this.chosenCard, this)
             if(res){
                 this.holdCards.splice(this.chosenCardIdx, 1)
                 this.chosenCard = null

@@ -8,7 +8,6 @@ import {Point} from "../common/Point";
 import {AlertManager} from "../common/text/AlertManager";
 import {ClockTimer} from "../common/text/ClockTimer";
 import {BasicPlayer} from "./BasicPlayer";
-import * as console from "console";
 
 export class Dealer implements Player, Drawable{
 
@@ -84,9 +83,9 @@ export class Dealer implements Player, Drawable{
         let x = this.pos.x + this.padding
         let y = this.pos.y + this.padding
         let start = this.usedCards.length - 10 >= 0 ? this.usedCards.length - 10 : 0
-        for(let i = start; i < this.usedCards.length; i++){
+        for(let i = start, j = 0; i < this.usedCards.length; i++, j++){
             let card = this.usedCards[i]
-            ctx.drawImage(card.getImage(), x + i * this.interval,
+            ctx.drawImage(card.getImage(), x + j * this.interval,
                 y, card.getWidth(), card.getHeight())
         }
         if(this.timer){
@@ -96,15 +95,37 @@ export class Dealer implements Player, Drawable{
 
     }
 
-    getACard(card: Card): boolean {
+    getACard(card: Card, player: BasicPlayer): boolean {
         //TODO  检查开始是否符合规则
         if(card === null){
             this.alertManager.addError("请选择一张牌！")
             return false
         }
-        this.usedCards.push(card)
+
+        if(player != this.getCurPlayer()){
+            this.alertManager.addError("当前不属于你的回合！")
+            return  false
+        }
+
+
+
+        //保存使用过的牌信息
+        this.notify([card])
+        //出牌合法之后
         this.incrTurn()
+        this.getCurPlayer().myTurn()
+
+        this.timer = this.timers[this.turn]()
         return true
+    }
+
+    notify(cards: Card[]){
+        for(let e of this.names){
+            let otherPlayer = this.players.get(e)
+            otherPlayer.getInfoFromDeal(cards)
+        }
+        this.getInfoFromDeal(cards)
+
     }
 
     giveACard(): Card {
@@ -120,6 +141,8 @@ export class Dealer implements Player, Drawable{
         }
         this.punishCardNum = this.defaultPunishCardNum
         this.incrTurn()
+        this.notify([])
+        this.timer = this.timers[this.turn]()
         return cards
     }
 
@@ -137,4 +160,25 @@ export class Dealer implements Player, Drawable{
 
     reset(): void {
     }
+
+    private getCurPlayer():BasicPlayer{
+        return this.players.get(this.names[this.turn])
+    }
+
+    getInfoFromDeal(cards: Card[]): void {
+        if(cards.length > 0){
+            this.usedCards = this.usedCards.concat(cards)
+        }
+    }
+
+
+    getName(): string {
+        return "dealer"
+    }
+
+    myTurn(): void {
+        //发牌员没有自己的回合
+    }
+
+
 }
