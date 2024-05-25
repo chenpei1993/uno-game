@@ -3,6 +3,7 @@ import {AlertTag} from "./AlertTag";
 import {Point} from "../Point";
 import {ErrorAlertTag} from "./ErrorAlertTag";
 import {WarningAlertTag} from "./WarningAlertTag";
+import {InfoAlertTag} from "./InfoAlertTag";
 
 export class AlertManager implements Drawable{
 
@@ -22,6 +23,10 @@ export class AlertManager implements Drawable{
 
     public addWarning(text: string){
         this.alerts.push(new WarningAlertTag(null, text));
+    }
+
+    public addInfo(text: string){
+        this.alerts.push(new  InfoAlertTag(null, text));
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
