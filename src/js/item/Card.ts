@@ -1,4 +1,3 @@
-import {Drawable} from "../Drawable";
 import {UnoCardType} from "../const/UnoCardType";
 import {UnoColorType} from "../const/UnoColorType";
 
@@ -9,6 +8,7 @@ export class Card {
     private img: HTMLImageElement
     private width: number
     private height: number
+    private punishNum: number = 0
 
     constructor(name: string, type: UnoCardType, color: UnoColorType, img: HTMLImageElement, width: number, height: number) {
         this.name = name
@@ -17,6 +17,9 @@ export class Card {
         this.img = img
         this.width = width
         this.height = height
+        if(this.type == UnoCardType.Draw){
+            this.punishNum = this.color == UnoColorType.Wild ? 4 : 2
+        }
     }
 
     getImage(){
@@ -41,6 +44,10 @@ export class Card {
 
     getName(): string {
         return this.name
+    }
+
+    getPunishNum(): number{
+        return this.punishNum
     }
 
 }

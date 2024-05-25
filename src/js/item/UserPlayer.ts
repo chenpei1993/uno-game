@@ -61,6 +61,7 @@ export class UserPlayer extends BasicPlayer{
                 this.holdCards.splice(this.chosenCardIdx, 1)
                 this.chosenCard = null
             }
+            this.uno()
         })
 
         this.punishButton.click(x, y, () => {

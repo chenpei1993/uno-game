@@ -5,15 +5,23 @@ import {Card} from "./Card";
 
 export class RobotPlayer extends BasicPlayer{
     private ai: AI
+    private chosenCardIdx: number
 
     constructor(name: string,width: number, height: number, dealer: Dealer, ai: AI) {
         super(name, width, height, dealer)
         this.ai = ai
+        this.chosenCardIdx = null
     }
 
     giveACard(): Card{
-        let cards = this.ai.play(this.holdCards)
-        return cards[0]
+        let idx = this.ai.play(this.holdCards)
+        if(idx.length > 0){
+            this.chosenCardIdx = idx[0]
+            return this.holdCards[this.chosenCardIdx]
+        }else{
+            return null
+        }
+
     }
 
     getInfoFromDeal(cards: Card[]): void{
@@ -23,14 +31,18 @@ export class RobotPlayer extends BasicPlayer{
     }
 
     myTurn() {
-        let random = 1000
+        let random = 5000
+        console.log("myturn " + this.name)
         setTimeout(e => {
             let card = this.giveACard()
-            if(card === null){
-                this.dealer.givePunishCard()
-            }else{
-                this.dealer.getACard(card, this)
+            let res = this.dealer.getACard(card, this)
+            console.log("robot ai " + this.name + " " + res)
+            if(!res){
+                this.getCards(this.dealer.givePunishCard())
+            }else if(this.chosenCardIdx != null){
+                this.holdCards.splice(this.chosenCardIdx, 1)
             }
+            this.uno()
         }, random)
     }
 }

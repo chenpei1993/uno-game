@@ -56,4 +56,10 @@ export class BasicPlayer implements Drawable, Clickable, Player{
     myTurn(): void {
     }
 
+    uno(): void{
+        if(this.holdCards.length == 1){
+            this.dealer.getAMessage(this.name + " Uno!");
+        }
+    }
+
 }

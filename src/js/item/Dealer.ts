@@ -8,6 +8,9 @@ import {Point} from "../common/Point";
 import {AlertManager} from "../common/text/AlertManager";
 import {ClockTimer} from "../common/text/ClockTimer";
 import {BasicPlayer} from "./BasicPlayer";
+import {Rule} from "../rule/Rule";
+import {UnoRule} from "../rule/UnoRule";
+import {UnoRuleType} from "../const/UnoRuleType";
 
 export class Dealer implements Player, Drawable{
 
@@ -29,6 +32,7 @@ export class Dealer implements Player, Drawable{
     private height: number
     private padding: number
     private names: string[] = ["user",  "left", "top", "right"]
+    private rule: Rule
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
         this.cardBox = new CardBox(container, cardWidth, cardHeight)
@@ -53,6 +57,7 @@ export class Dealer implements Player, Drawable{
             () => (new ClockTimer(new Point(this.pos.x + this.width / 2, this.pos.y + 50), defaultTime)),
             () => (new ClockTimer(new Point(this.pos.x + this.width - 50, this.pos.y + this.height  / 2), defaultTime)),
         ]
+        this.rule = new UnoRule()
     }
 
     newGame(){
@@ -96,27 +101,59 @@ export class Dealer implements Player, Drawable{
     }
 
     getACard(card: Card, player: BasicPlayer): boolean {
-        //TODO  检查开始是否符合规则
-        if(card === null){
-            this.alertManager.addError("请选择一张牌！")
-            return false
-        }
 
         if(player != this.getCurPlayer()){
             this.alertManager.addError("当前不属于你的回合！")
             return  false
         }
 
+        let cards = [card]
+        let res = this.rule.check(cards, this.usedCards)
+        console.log("rule: " + res)
+        //TODO 优化
+        if(res == UnoRuleType.error){
+            this.alertManager.addError("请选择符合规则的牌！")
+            return false
+        }else if(res ==UnoRuleType.ok){
+            //保存使用过的牌信息
+            this.notify(cards)
+            //出牌合法之后
+            this.incrTurn()
+            this.getCurPlayer().myTurn()
 
+            this.timer = this.timers[this.turn]()
+            return true
+        }else if(res == UnoRuleType.reverse){
+            this.clockWise = !this.clockWise
+            //保存使用过的牌信息
+            this.notify(cards)
+            //出牌合法之后
+            this.incrTurn()
+            this.getCurPlayer().myTurn()
+            this.timer = this.timers[this.turn]()
+        }else if(res == UnoRuleType.addPunishCard){
+            this.punishCardNum += card.getPunishNum()
+            //保存使用过的牌信息
+            this.notify(cards)
+            //出牌合法之后
+            this.incrTurn()
+            this.getCurPlayer().myTurn()
+            this.timer = this.timers[this.turn]()
+        }else if(res == UnoRuleType.skip){
+            console.log("here")
+            this.incrTurn()
+            //保存使用过的牌信息
+            this.notify(cards)
+            //出牌合法之后
+            this.incrTurn()
+            this.getCurPlayer().myTurn()
+            this.timer = this.timers[this.turn]()
+        }else if(res == UnoRuleType.choose){
+            console.log("choose")
+        }
 
-        //保存使用过的牌信息
-        this.notify([card])
-        //出牌合法之后
-        this.incrTurn()
-        this.getCurPlayer().myTurn()
-
-        this.timer = this.timers[this.turn]()
         return true
+
     }
 
     notify(cards: Card[]){
@@ -128,6 +165,10 @@ export class Dealer implements Player, Drawable{
 
     }
 
+    getAMessage(msg: string){
+        this.alertManager.addWarning(msg)
+    }
+
     giveACard(): Card {
         let card = this.cards[this.usedCardIdx]
         this.usedCardIdx++
@@ -136,12 +177,13 @@ export class Dealer implements Player, Drawable{
 
     givePunishCard(): Card[]{
         let cards:Card[] = []
+        this.alertManager.addInfo(this.getCurPlayer().getName() + "接受惩罚: " + this.punishCardNum + "张!")
         for(let i = 0; i < this.punishCardNum; i++){
             cards.push(this.giveACard())
         }
         this.punishCardNum = this.defaultPunishCardNum
         this.incrTurn()
-        this.notify([])
+        this.getCurPlayer().myTurn()
         this.timer = this.timers[this.turn]()
         return cards
     }

@@ -1,3 +1,5 @@
+import {Card} from "../item/Card";
+
 export interface Rule{
-    check(): boolean
+    check(card:Card[], lastCards:Card[]): number
 }
