@@ -3,7 +3,7 @@ import {Point} from "../Point";
 import {ButtonOption} from "./option/ButtonOption";
 import {BasicButton} from "./BasicButton";
 
-export class ImageButton extends BasicButton<ButtonOption>{
+export class ImageButton extends BasicButton{
 
     constructor(pos: Point, option: ButtonOption) {
         option = option ?? {}
@@ -16,7 +16,8 @@ export class ImageButton extends BasicButton<ButtonOption>{
             color: '#000',
             textColor: '#000',
             radius: 0,
-            img: null
+            img: null,
+            func: () => {}
         })
         this.updateConfig()
     }
@@ -27,15 +28,5 @@ export class ImageButton extends BasicButton<ButtonOption>{
             , this.pos.y, this.option.width, this.option.height)
         ctx.restore()
     }
-
-    click(x: number, y: number, func: () => void): void {
-        if(this.pos.x < x && x < this.pos.x + this.option.width
-            && this.pos.y < y && y < this.pos.y + this.option.height){
-            if(func){
-                func()
-            }
-        }
-    }
-
 
 }

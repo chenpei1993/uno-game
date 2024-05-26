@@ -41,7 +41,7 @@ export class BasicPlayer implements Drawable, Clickable, Player{
     }
 
 
-    click(x: number, y: number, func: () => void){
+    click(x: number, y: number){
         throw new Error("unsupported func")
     }
 

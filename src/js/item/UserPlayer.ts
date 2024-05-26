@@ -25,14 +25,25 @@ export class UserPlayer extends BasicPlayer{
             font: "28px ",
             textColor: "black",
             width: 50,
-            color: "black"
+            color: "black",
+            func: () => {
+                let res = this.dealer.getACard(this.chosenCard, this)
+                if(res){
+                    this.holdCards.splice(this.chosenCardIdx, 1)
+                    this.chosenCard = null
+                }
+                this.uno()
+            }
         })
         this.punishButton = new RectRoundButton(new Point(mid - 3 *interval, height - 100), {
             text:"惩罚",
             font: "28px ",
             textColor: "red",
             width: 50,
-            color: "red"
+            color: "red",
+            func: () => {
+                this.getCards(this.dealer.givePunishCard())
+            }
         })
     }
 
@@ -54,19 +65,10 @@ export class UserPlayer extends BasicPlayer{
 
     }
 
-    click(x: number, y: number, func: () => void){
-        this.playButton.click(x, y, () => {
-            let res = this.dealer.getACard(this.chosenCard, this)
-            if(res){
-                this.holdCards.splice(this.chosenCardIdx, 1)
-                this.chosenCard = null
-            }
-            this.uno()
-        })
+    click(x: number, y: number){
+        this.playButton.click(x, y)
 
-        this.punishButton.click(x, y, () => {
-            this.getCards(this.dealer.givePunishCard())
-        })
+        this.punishButton.click(x, y)
 
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]

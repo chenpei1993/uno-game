@@ -1,6 +1,7 @@
 import {AI} from "./AI";
 import {Card} from "../item/Card";
 import {UnoCardType} from "../const/UnoCardType";
+import {UnoColorType} from "../const/UnoColorType";
 
 export class SimpleAI implements AI{
 
@@ -15,6 +16,9 @@ export class SimpleAI implements AI{
     }
 
     play(cards: Card[]): number[] {
+        if(this.usedCard.length <= 0){
+            return [this.mostCardOfSameColor(cards)]
+        }
 
         let preCard = this.usedCard[this.usedCard.length - 1]
         let card = null
@@ -37,6 +41,32 @@ export class SimpleAI implements AI{
             }
         }
         return [];
+    }
+
+    private mostCardOfSameColor(cards: Card[]): number{
+        let map = new Map<UnoColorType, number>()
+        for(let e of cards){
+            if(map.has(e.getColor())){
+                let n = map.get(e.getColor())
+                map.set(e.getColor(), n + 1)
+            }else{
+                map.set(e.getColor(), 1)
+            }
+        }
+
+        let n = 0
+        let color = null
+        for(let e of map){
+            if(e[1] > n){
+                color = e[0]
+            }
+        }
+
+        for(let i = 0; i < cards.length; i++){
+            if(cards[i].getColor() == color && cards[i].getType() == UnoCardType.Number){
+                return i
+            }
+        }
     }
 
 }

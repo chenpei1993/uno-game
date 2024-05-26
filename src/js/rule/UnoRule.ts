@@ -30,14 +30,8 @@ export class UnoRule implements Rule{
         }
 
         if(card.getColor() == UnoColorType.Wild){
-            if(card.getType() == UnoCardType.Draw){
-                return UnoRuleType.addPunishCard
-            }else{
-                return UnoRuleType.choose
-            }
+            return this.getSpecificType(card)
         }
-
-
 
         return UnoRuleType.error
     }
@@ -49,6 +43,10 @@ export class UnoRule implements Rule{
             return UnoRuleType.addPunishCard
         }else if(card.getType() == UnoCardType.Reverse){
             return UnoRuleType.reverse
+        }else if(card.getType() == UnoCardType.Wild){
+            return UnoRuleType.choose
+        }else if(card.getType() == UnoCardType.Wild_Draw){
+            return UnoRuleType.choose_punish
         }
         return UnoRuleType.ok
 

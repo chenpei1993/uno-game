@@ -11,8 +11,15 @@ import {BasicPlayer} from "./BasicPlayer";
 import {Rule} from "../rule/Rule";
 import {UnoRule} from "../rule/UnoRule";
 import {UnoRuleType} from "../const/UnoRuleType";
+import {Panel} from "../common/layout/Panel";
+import {Div} from "../common/layout/Div";
+import {RectButton} from "../common/button/RectButton";
+import {TextTag} from "../common/text/TextTag";
+import {OrientType} from "../common/layout/OrientType";
+import {Clickable} from "../Clickable";
+import {UnoColorType} from "../const/UnoColorType";
 
-export class Dealer implements Player, Drawable{
+export class Dealer implements Player, Drawable, Clickable{
 
     private cardBox: CardBox
     private cards: Card[]
@@ -33,6 +40,9 @@ export class Dealer implements Player, Drawable{
     private padding: number
     private names: string[] = ["user",  "left", "top", "right"]
     private rule: Rule
+    private panel: Panel
+    private chosenColor: UnoColorType
+    private showPanel: boolean
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
         this.cardBox = new CardBox(container, cardWidth, cardHeight)
@@ -58,6 +68,19 @@ export class Dealer implements Player, Drawable{
             () => (new ClockTimer(new Point(this.pos.x + this.width - 50, this.pos.y + this.height  / 2), defaultTime)),
         ]
         this.rule = new UnoRule()
+        this.showPanel = false
+        let colors = new Div(new Point(0, 0), {orientation: OrientType.horizon});
+        colors.addItem(new RectButton(null, {backgroundColor: "red", height: 100,
+            func:() => {this.chosenColor = UnoColorType.Red; this.showPanel = false}}))
+        colors.addItem(new RectButton(null, {backgroundColor: "yellow", height: 100,
+            func:() => {this.chosenColor = UnoColorType.Yellow; this.showPanel = false}}))
+        colors.addItem(new RectButton(null, {backgroundColor: "blue", height: 100,
+            func:() => {this.chosenColor = UnoColorType.Blue; this.showPanel = false}}))
+        colors.addItem(new RectButton(null, {backgroundColor: "green", height: 100,
+            func:() => {this.chosenColor = UnoColorType.Green; this.showPanel = false}}))
+
+        let x = container.getWidth() / 2 - colors.getWidth() / 2
+        this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "", "18px"), body: colors})
     }
 
     newGame(){
@@ -98,6 +121,9 @@ export class Dealer implements Player, Drawable{
         }
         this.alertManager.draw(ctx)
 
+        if(this.showPanel){
+            this.panel.draw(ctx)
+        }
     }
 
     getACard(card: Card, player: BasicPlayer): boolean {
@@ -109,51 +135,46 @@ export class Dealer implements Player, Drawable{
 
         let cards = [card]
         let res = this.rule.check(cards, this.usedCards)
-        console.log("rule: " + res)
-        //TODO 优化
+        console.log("check " + res)
         if(res == UnoRuleType.error){
             this.alertManager.addError("请选择符合规则的牌！")
             return false
         }else if(res ==UnoRuleType.ok){
-            //保存使用过的牌信息
-            this.notify(cards)
-            //出牌合法之后
-            this.incrTurn()
-            this.getCurPlayer().myTurn()
-
-            this.timer = this.timers[this.turn]()
-            return true
+            this.nextTurn(cards)
         }else if(res == UnoRuleType.reverse){
+            //反转方向
             this.clockWise = !this.clockWise
-            //保存使用过的牌信息
-            this.notify(cards)
-            //出牌合法之后
-            this.incrTurn()
-            this.getCurPlayer().myTurn()
-            this.timer = this.timers[this.turn]()
+            this.nextTurn(cards)
         }else if(res == UnoRuleType.addPunishCard){
+            //增加惩罚的牌
             this.punishCardNum += card.getPunishNum()
-            //保存使用过的牌信息
-            this.notify(cards)
-            //出牌合法之后
-            this.incrTurn()
-            this.getCurPlayer().myTurn()
-            this.timer = this.timers[this.turn]()
+            this.nextTurn(cards)
         }else if(res == UnoRuleType.skip){
-            console.log("here")
+            //跳过一位
             this.incrTurn()
-            //保存使用过的牌信息
-            this.notify(cards)
-            //出牌合法之后
-            this.incrTurn()
-            this.getCurPlayer().myTurn()
-            this.timer = this.timers[this.turn]()
+            this.nextTurn(cards)
         }else if(res == UnoRuleType.choose){
-            console.log("choose")
+            //展示选择颜色面板
+            this.showPanel = true
+            this.timer = this.timers[this.turn]()
+        }else if(res == UnoRuleType.choose_punish){
+            //增加惩罚的牌, 并且现实展示选择颜色面板
+            this.punishCardNum += card.getPunishNum()
+            this.showPanel = true
+            this.timer = this.timers[this.turn]()
         }
 
         return true
 
+    }
+
+    nextTurn(cards: Card[]){
+        //保存使用过的牌信息
+        this.notify(cards)
+        //出牌合法之后
+        this.incrTurn()
+        this.getCurPlayer().myTurn()
+        this.timer = this.timers[this.turn]()
     }
 
     notify(cards: Card[]){
@@ -220,6 +241,10 @@ export class Dealer implements Player, Drawable{
 
     myTurn(): void {
         //发牌员没有自己的回合
+    }
+
+    click(x: number, y: number): void {
+        this.panel.click(x, y)
     }
 
 

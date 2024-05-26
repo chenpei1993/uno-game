@@ -8,4 +8,5 @@ export interface ButtonOption{
     textColor ?: string,
     radius ?: number,
     img ?: HTMLImageElement,
+    func ?: () => void
 }

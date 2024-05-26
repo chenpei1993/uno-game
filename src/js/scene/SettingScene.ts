@@ -54,28 +54,23 @@ export class SettingScene implements Scene{
             text:"x",
             font: "28px ",
             textColor: "red",
-            color: "rgba(0,0,0,0)"
+            color: "rgba(0,0,0,0)",
+            func: () => {
+                this.sceneManager.nextScene(SceneType.Main)
+            }
         })
     }
 
     init(){}
 
-    click(x: number, y: number, func: () => void): void {
-        this.music.click(x, y, () => {
+    click(x: number, y: number): void {
+        this.music.click(x, y)
 
-        })
+        this.volume.click(x, y)
 
-        this.volume.click(x, y, () => {
+        this.fps.click(x, y)
 
-        })
-
-        this.fps.click(x, y, () => {
-
-        })
-
-        this.closeButton.click(x,y, () => {
-            this.sceneManager.nextScene(SceneType.Main)
-        })
+        this.closeButton.click(x,y)
     }
 
     draw(ctx: CanvasRenderingContext2D): void {

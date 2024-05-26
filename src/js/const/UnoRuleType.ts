@@ -6,4 +6,5 @@ export class UnoRuleType {
     static reverse: number = 2
     static skip: number = 3
     static choose: number = 4
+    static choose_punish: number = 5
 }

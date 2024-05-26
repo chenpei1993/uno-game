@@ -35,12 +35,19 @@ export class MainScene implements Scene{
         y += this.intervalY
         let startGameButtonPos: Point = new Point(x, y)
         this.startGameButton = new RectRoundButton(startGameButtonPos, {
-            text: "开始游戏"
+            text: "开始游戏",
+            func: () => {
+                let scene = this.sceneManager.nextScene(SceneType.Game)
+                scene.init()
+            }
         })
         y += this.intervalY
         let settingGameButtonPos: Point = new Point(x, y)
         this.settingGameButton = new RectRoundButton(settingGameButtonPos, {
-            text: "设置"
+            text: "设置",
+            func: () => {
+                this.sceneManager.nextScene(SceneType.Setting)
+            }
         })
 
         this.showEffect = new SnowEffect(this.container.getWidth(), this.container.getHeight(), 40, 100, 3)
@@ -68,13 +75,8 @@ export class MainScene implements Scene{
     }
 
     click(x: number, y: number): void {
-        this.startGameButton.click(x, y, () => {
-            let scene = this.sceneManager.nextScene(SceneType.Game)
-            scene.init()
-        })
-        this.settingGameButton.click(x, y, () => {
-            this.sceneManager.nextScene(SceneType.Setting)
-        })
+        this.startGameButton.click(x, y)
+        this.settingGameButton.click(x, y)
     }
 
     getSceneType(): SceneType {

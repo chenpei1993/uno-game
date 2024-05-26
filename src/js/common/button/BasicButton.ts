@@ -2,37 +2,58 @@ import {Button} from "./Button";
 import {Point} from "../Point";
 import {ButtonOption} from "./option/ButtonOption";
 
-export abstract class BasicButton<T> implements Button<T>{
+export abstract class BasicButton implements Button<ButtonOption>{
     protected pos: Point
-    protected option: T
-    protected userOption: T
+    protected option: ButtonOption
+    protected userOption: ButtonOption
 
-    protected constructor(pos: Point, option: T) {
+    protected constructor(pos: Point, option: ButtonOption) {
         this.pos = pos
         this.userOption = option
     }
 
     updateConfig(){
-        let key: keyof T
+        let key: keyof ButtonOption
         for(key in this.option){
             this.setConfig(key, this.userOption[key] ?? this.option[key]);
         }
     }
 
-    setDefaultOption(option: T){
+    setDefaultOption(option: ButtonOption){
         this.option = option
     }
 
-    setConfig<Key extends keyof T>(key: Key, value: T[Key]): void {
+    setConfig<Key extends keyof ButtonOption>(key: Key, value: ButtonOption[Key]): void {
         this.option[key] = value
     }
 
-    draw(ctx: CanvasRenderingContext2D): void {
-        throw new Error("implement this method")
+    abstract draw(ctx: CanvasRenderingContext2D): void
+
+    click(x: number, y: number): void {
+        if(this.pos && this.pos.x && this.pos.y && this.option.width && this.option.height){
+            if(this.pos.x < x && x < this.pos.x + this.option.width
+                && this.pos.y < y && y < this.pos.y + this.option.height){
+                if(this.option.func){
+                    this.option.func()
+                }
+            }
+        }
     }
 
-    click(x: number, y: number, func: () => void): void {
-        throw new Error("implement this method")
+    getPosition(): Point {
+        return this.pos;
+    }
+
+    getHeight(): number {
+        return this.option.height
+    }
+
+    getWidth(): number {
+        return this.option.width
+    }
+
+    setPosition(pos: Point): void {
+        this.pos = pos
     }
 
 }

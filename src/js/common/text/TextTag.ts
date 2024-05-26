@@ -1,7 +1,8 @@
 import {Point} from "../Point";
 import {Drawable} from "../../Drawable";
+import {Item} from "../Item";
 
-export class TextTag implements Drawable{
+export class TextTag implements Item{
 
     private pos: Point
     private text: string
@@ -22,6 +23,26 @@ export class TextTag implements Drawable{
         let x = this.pos.x - box.width / 2
         ctx.fillText(this.text, x, this.pos.y)
         ctx.restore()
+    }
+
+    getHeight(): number {
+        return 100
+    }
+
+    getPosition(): Point {
+        return this.pos;
+    }
+
+    getWidth(): number {
+        //TODO
+        return 100
+    }
+
+    setPosition(pos: Point): void {
+        this.pos = pos
+    }
+
+    click(x: number, y: number): void {
     }
 
 }

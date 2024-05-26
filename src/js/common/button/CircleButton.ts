@@ -3,7 +3,7 @@ import {Point} from "../Point";
 import {ButtonOption} from "./option/ButtonOption";
 import {BasicButton} from "./BasicButton";
 
-export class CircleButton extends BasicButton<ButtonOption>{
+export class CircleButton extends BasicButton{
     private ox: number
     private oy: number
     constructor(pos: Point, option: ButtonOption) {
@@ -17,6 +17,7 @@ export class CircleButton extends BasicButton<ButtonOption>{
             color: '#000',
             textColor: '#000',
             radius: 10,
+            func: () => {}
         })
         this.updateConfig()
     }
@@ -31,27 +32,14 @@ export class CircleButton extends BasicButton<ButtonOption>{
         this.oy = this.pos.y + this.option.height / 2 - h / 2
         ctx.beginPath()
         ctx.strokeStyle = this.option.color
-        ctx.arc(this.ox , this.oy, this.option.radius, 0, Math.PI * 2)
+        ctx.arc(this.ox, this.oy, this.option.radius, 0, Math.PI * 2)
         ctx.stroke()
         ctx.closePath()
 
         ctx.fillStyle = this.option.textColor
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        ctx.fillText(this.option.text, this.ox , this.oy)
+        ctx.fillText(this.option.text, this.ox, this.oy)
         ctx.restore()
     }
-
-
-
-    click(x: number, y: number, func: () => void): void {
-        if(Math.pow(this.ox - x, 2) + Math.pow(this.oy - y, 2) <= Math.pow(this.option.radius, 2)){
-            if(func){
-                func()
-            }
-        }
-
-    }
-
-
 }

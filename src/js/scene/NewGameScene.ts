@@ -43,7 +43,10 @@ export class NewGameScene implements Scene{
             text:"x",
             font: "28px ",
             textColor: "red",
-            color: "rgba(0,0,0,0)"
+            color: "rgba(0,0,0,0)",
+            func: () => {
+                this.sceneManager.nextScene(SceneType.Main)
+            }
         })
     }
 
@@ -51,14 +54,13 @@ export class NewGameScene implements Scene{
         this.dealer.newGame()
     }
 
-    click(x: number, y: number, func: () => void): void {
-        this.closeButton.click(x,y, () => {
-            this.sceneManager.nextScene(SceneType.Main)
-        })
+    click(x: number, y: number): void {
+        this.closeButton.click(x,y)
 
-        this.player.click(x, y, () => {
-            this.player.click(x, y, null)
-        })
+        this.player.click(x, y)
+
+
+        this.dealer.click(x, y)
     }
 
     draw(ctx: CanvasRenderingContext2D): void {

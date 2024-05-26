@@ -3,7 +3,7 @@ import {Point} from "../Point";
 import {BasicButton} from "./BasicButton";
 import {ButtonOption} from "./option/ButtonOption";
 
-export class SliderButton extends BasicButton<ButtonOption> {
+export class SliderButton extends BasicButton {
     private sliderX: number
     private sliderY: number
     private r: number
@@ -20,6 +20,7 @@ export class SliderButton extends BasicButton<ButtonOption> {
             color: '#000',
             textColor: '#000',
             radius: 10,
+            func: () => {}
         })
         this.updateConfig()
         this.r = this.option.height / 2
@@ -66,16 +67,5 @@ export class SliderButton extends BasicButton<ButtonOption> {
         }
         this.value = this.sliderX / (this.option.width - 2 * this.r)
     }
-
-    click(x: number, y: number, func: () => void): void {
-        if(this.pos.x < x && x < this.pos.x + this.option.width
-            && this.pos.y < y && y < this.pos.y + this.option.height){
-            this.setSliderX(x)
-            if(func){
-                func()
-            }
-        }
-    }
-
 
 }

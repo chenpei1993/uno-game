@@ -59,7 +59,13 @@ export class CardBox{
 
             let name = ""
             let type = UnoCardType.Number
-            if(info[1] === "Color"){
+            if(color === UnoColorType.Wild){
+                if(info[1] === "color"){
+                    type = UnoCardType.Wild
+                }else{
+                    type = UnoCardType.Wild_Draw
+                }
+            } else if(info[1] === "Color"){
                 type = UnoCardType.Color
             }else if(info[1] === "Reverse"){
                 type = UnoCardType.Reverse
@@ -70,7 +76,6 @@ export class CardBox{
             }else if(info[1] != ""){
                 name = info[1]
             }
-
             let img = this.container.getImage(this.prefix + cardName)
             let card = new Card(name, type, color, img, cardWidth, cardHeight)
             this.cards.push(card)

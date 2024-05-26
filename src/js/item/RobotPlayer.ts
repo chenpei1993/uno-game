@@ -17,6 +17,7 @@ export class RobotPlayer extends BasicPlayer{
         let idx = this.ai.play(this.holdCards)
         if(idx.length > 0){
             this.chosenCardIdx = idx[0]
+            console.log(this.holdCards[this.chosenCardIdx])
             return this.holdCards[this.chosenCardIdx]
         }else{
             return null

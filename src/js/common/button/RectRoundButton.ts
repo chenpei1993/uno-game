@@ -3,7 +3,7 @@ import {Point} from "../Point";
 import {ButtonOption} from "./option/ButtonOption";
 import {BasicButton} from "./BasicButton";
 
-export class RectRoundButton extends BasicButton<ButtonOption>{
+export class RectRoundButton extends BasicButton{
 
     constructor(pos: Point, option: ButtonOption) {
         option = option ?? {}
@@ -16,6 +16,7 @@ export class RectRoundButton extends BasicButton<ButtonOption>{
             color: '#000',
             textColor: '#000',
             radius: 10,
+            func: () => {}
         })
         this.updateConfig()
     }
@@ -44,17 +45,5 @@ export class RectRoundButton extends BasicButton<ButtonOption>{
         ctx.fillText(this.option.text, x, y)
         ctx.restore()
     }
-
-
-
-    click(x: number, y: number, func: () => void): void {
-        if(this.pos.x < x && x < this.pos.x + this.option.width
-             && this.pos.y < y && y < this.pos.y + this.option.height){
-            if(func){
-                func()
-            }
-        }
-    }
-
 
 }
