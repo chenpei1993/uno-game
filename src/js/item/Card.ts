@@ -18,7 +18,11 @@ export class Card {
         this.width = width
         this.height = height
         if(this.type == UnoCardType.Draw){
-            this.punishNum = this.color == UnoColorType.Wild ? 4 : 2
+            this.punishNum = 2
+        }
+
+        if(this.type == UnoCardType.Wild_Draw){
+            this.punishNum = 4
         }
     }
 
@@ -40,6 +44,10 @@ export class Card {
 
     getColor(): UnoColorType{
         return this.color;
+    }
+
+    setColor(color: UnoColorType): void{
+        this.color = color
     }
 
     getName(): string {

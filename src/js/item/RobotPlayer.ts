@@ -2,6 +2,7 @@ import {BasicPlayer} from "./BasicPlayer";
 import {AI} from "../strategy/AI";
 import {Dealer} from "./Dealer";
 import {Card} from "./Card";
+import {UnoChooseType} from "../const/UnoChooseType";
 
 export class RobotPlayer extends BasicPlayer{
     private ai: AI
@@ -17,7 +18,6 @@ export class RobotPlayer extends BasicPlayer{
         let idx = this.ai.play(this.holdCards)
         if(idx.length > 0){
             this.chosenCardIdx = idx[0]
-            console.log(this.holdCards[this.chosenCardIdx])
             return this.holdCards[this.chosenCardIdx]
         }else{
             return null
@@ -31,19 +31,36 @@ export class RobotPlayer extends BasicPlayer{
         }
     }
 
-    myTurn() {
+    myTurn(type: UnoChooseType) {
+
+        if(type === UnoChooseType.Card){
+            this.chooseCard()
+        }else if (type === UnoChooseType.Color){
+            this.chooseColor()
+        }else{
+            throw  new Error("unknown choose type")
+        }
+    }
+
+    chooseCard(): void{
         let random = 5000
-        console.log("myturn " + this.name)
         setTimeout(e => {
             let card = this.giveACard()
             let res = this.dealer.getACard(card, this)
-            console.log("robot ai " + this.name + " " + res)
             if(!res){
                 this.getCards(this.dealer.givePunishCard())
             }else if(this.chosenCardIdx != null){
                 this.holdCards.splice(this.chosenCardIdx, 1)
             }
             this.uno()
+        }, random)
+    }
+
+    chooseColor(): void {
+        let random = 5000
+        setTimeout(e => {
+            let color = this.ai.choose(this.holdCards)
+            this.dealer.handleChosenColor(color)
         }, random)
     }
 }

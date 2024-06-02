@@ -18,6 +18,7 @@ import {TextTag} from "../common/text/TextTag";
 import {OrientType} from "../common/layout/OrientType";
 import {Clickable} from "../Clickable";
 import {UnoColorType} from "../const/UnoColorType";
+import {UnoChooseType} from "../const/UnoChooseType";
 
 export class Dealer implements Player, Drawable, Clickable{
 
@@ -41,7 +42,7 @@ export class Dealer implements Player, Drawable, Clickable{
     private names: string[] = ["user",  "left", "top", "right"]
     private rule: Rule
     private panel: Panel
-    private chosenColor: UnoColorType
+    private curCard: Card
     private showPanel: boolean
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
@@ -71,16 +72,20 @@ export class Dealer implements Player, Drawable, Clickable{
         this.showPanel = false
         let colors = new Div(new Point(0, 0), {orientation: OrientType.horizon});
         colors.addItem(new RectButton(null, {backgroundColor: "red", height: 100,
-            func:() => {this.chosenColor = UnoColorType.Red; this.showPanel = false}}))
+            func:() => {this.handleChosenColor(UnoColorType.Red)}}))
         colors.addItem(new RectButton(null, {backgroundColor: "yellow", height: 100,
-            func:() => {this.chosenColor = UnoColorType.Yellow; this.showPanel = false}}))
+            func:() => {this.handleChosenColor(UnoColorType.Yellow)}}))
         colors.addItem(new RectButton(null, {backgroundColor: "blue", height: 100,
-            func:() => {this.chosenColor = UnoColorType.Blue; this.showPanel = false}}))
+            func:() => {this.handleChosenColor(UnoColorType.Blue)}}))
         colors.addItem(new RectButton(null, {backgroundColor: "green", height: 100,
-            func:() => {this.chosenColor = UnoColorType.Green; this.showPanel = false}}))
+            func:() => {this.handleChosenColor(UnoColorType.Green)}}))
 
         let x = container.getWidth() / 2 - colors.getWidth() / 2
         this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "", "18px"), body: colors})
+    }
+
+    choose(): UnoColorType {
+        throw new Error("Method not implemented.");
     }
 
     newGame(){
@@ -135,6 +140,7 @@ export class Dealer implements Player, Drawable, Clickable{
 
         let cards = [card]
         let res = this.rule.check(cards, this.usedCards)
+        this.curCard = card
         console.log("check " + res)
         if(res == UnoRuleType.error){
             this.alertManager.addError("请选择符合规则的牌！")
@@ -162,6 +168,7 @@ export class Dealer implements Player, Drawable, Clickable{
             this.punishCardNum += card.getPunishNum()
             this.showPanel = true
             this.timer = this.timers[this.turn]()
+            this.getCurPlayer().myTurn(UnoChooseType.Color)
         }
 
         return true
@@ -173,7 +180,7 @@ export class Dealer implements Player, Drawable, Clickable{
         this.notify(cards)
         //出牌合法之后
         this.incrTurn()
-        this.getCurPlayer().myTurn()
+        this.getCurPlayer().myTurn(UnoChooseType.Card)
         this.timer = this.timers[this.turn]()
     }
 
@@ -204,7 +211,7 @@ export class Dealer implements Player, Drawable, Clickable{
         }
         this.punishCardNum = this.defaultPunishCardNum
         this.incrTurn()
-        this.getCurPlayer().myTurn()
+        this.getCurPlayer().myTurn(UnoChooseType.Card)
         this.timer = this.timers[this.turn]()
         return cards
     }
@@ -245,6 +252,12 @@ export class Dealer implements Player, Drawable, Clickable{
 
     click(x: number, y: number): void {
         this.panel.click(x, y)
+    }
+
+    handleChosenColor(color: UnoColorType):void {
+        this.curCard.setColor(color)
+        this.showPanel = false
+        this.nextTurn([this.curCard])
     }
 
 

@@ -3,8 +3,12 @@ import {Card} from "./Card";
 import {Dealer} from "./Dealer";
 import {RectRoundButton} from "../common/button/RectRoundButton";
 import {Point} from "../common/Point";
+import { UnoColorType } from "../const/UnoColorType";
 
-export class UserPlayer extends BasicPlayer{
+export class UserPlayer extends BasicPlayer {
+    choose(): UnoColorType {
+        throw new Error("Method not implemented.");
+    }
 
     private chosenCard: Card
     private chosenCardIdx: number

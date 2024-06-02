@@ -3,8 +3,10 @@ import {Card} from "./Card";
 import {Player} from "./Player";
 import {Clickable} from "../Clickable";
 import {Dealer} from "./Dealer";
+import {UnoColorType} from "../const/UnoColorType";
+import {UnoChooseType} from "../const/UnoChooseType";
 
-export class BasicPlayer implements Drawable, Clickable, Player{
+export abstract class BasicPlayer implements Drawable, Clickable, Player{
     protected dealer: Dealer
     protected holdCards: Card[]
     protected width: number
@@ -53,7 +55,7 @@ export class BasicPlayer implements Drawable, Clickable, Player{
         return this.name
     }
 
-    myTurn(): void {
+    myTurn(type: UnoChooseType): void {
     }
 
     uno(): void{

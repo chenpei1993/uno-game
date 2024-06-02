@@ -69,4 +69,13 @@ export class SimpleAI implements AI{
         }
     }
 
+    choose(cards: Card[]): UnoColorType {
+        let i = this.mostCardOfSameColor(cards)
+        if(i){
+            return cards[i].getColor()
+        }
+        let arr = [UnoColorType.Red, UnoColorType.Yellow, UnoColorType.Blue, UnoColorType.Green]
+        return arr[Math.floor(Math.random() * arr.length)]
+    }
+
 }
