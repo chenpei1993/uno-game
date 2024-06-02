@@ -14,6 +14,9 @@ export class LeftPlayer extends RobotPlayer{
     }
 
     draw(ctx: CanvasRenderingContext2D) {
+        if(this.holdCards.length <= 0){
+            return
+        }
         let card = this.holdCards[0]
         let w = (this.holdCards.length - 1) * this.interval + card.getWidth()
         let x = card.getHeight()
