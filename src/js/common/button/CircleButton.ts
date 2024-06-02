@@ -42,4 +42,12 @@ export class CircleButton extends BasicButton{
         ctx.fillText(this.option.text, this.ox, this.oy)
         ctx.restore()
     }
+
+    click(x: number, y: number): void {
+        if(this.ox && this.oy){
+            if(Math.pow(this.ox - x, 2) + Math.pow(this.oy - y, 2) <= Math.pow(this.option.radius, 2)){
+                this.option.func()
+            }
+        }
+    }
 }
