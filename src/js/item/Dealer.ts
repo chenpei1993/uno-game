@@ -81,7 +81,7 @@ export class Dealer implements Player, Drawable, Clickable{
             func:() => {this.handleChosenColor(UnoColorType.Green)}}))
 
         let x = container.getWidth() / 2 - colors.getWidth() / 2
-        this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "", "18px"), body: colors})
+        this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "", "24px serif"), body: colors})
     }
 
     choose(): UnoColorType {

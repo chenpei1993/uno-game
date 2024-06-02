@@ -17,7 +17,7 @@ export class MainScene implements Scene{
     private musicGameButton: CircleButton
     private showEffect: SnowEffect
 
-    private intervalY: number
+    private margin: number
     private baseY: number
     private title: TextTag
 
@@ -25,14 +25,14 @@ export class MainScene implements Scene{
         this.sceneType = sceneType
         this.container = container
         this.sceneManager = sceneManager
-        this.intervalY = 50
+        this.margin = 10
         this.baseY = 150
 
 
         let x = this.container.getWidth() / 2 - 100 / 2
         let y = this.baseY
         this.title = new TextTag(new Point(this.container.getWidth() / 2, y), "Uno", null, "100px serif")
-        y += this.intervalY
+        y += this.title.getHeight()
         let startGameButtonPos: Point = new Point(x, y)
         this.startGameButton = new RectRoundButton(startGameButtonPos, {
             text: "开始游戏",
@@ -41,7 +41,7 @@ export class MainScene implements Scene{
                 scene.init()
             }
         })
-        y += this.intervalY
+        y += this.startGameButton.getHeight() + this.margin
         let settingGameButtonPos: Point = new Point(x, y)
         this.settingGameButton = new RectRoundButton(settingGameButtonPos, {
             text: "设置",
