@@ -69,6 +69,7 @@ export class Dealer implements Player, Drawable, Clickable{
             () => (new ClockTimer(new Point(this.pos.x + this.width - 50, this.pos.y + this.height  / 2), defaultTime)),
         ]
         this.rule = new UnoRule()
+
         this.showPanel = false
         let colors = new Div(new Point(0, 0), {orientation: OrientType.horizon});
         colors.addItem(new RectButton(null, {backgroundColor: "red", height: 100,
@@ -89,6 +90,7 @@ export class Dealer implements Player, Drawable, Clickable{
     }
 
     newGame(){
+        this.reset()
         for(let e of this.players.values()){
             e.reset()
         }
@@ -102,6 +104,8 @@ export class Dealer implements Player, Drawable, Clickable{
             player = this.players.get(this.names[3])
             player.getACard(this.giveACard())
         }
+
+
         this.turn = 0
         this.timer = this.timers[this.turn]()
     }
@@ -229,6 +233,12 @@ export class Dealer implements Player, Drawable, Clickable{
     }
 
     reset(): void {
+        ArrayUtil.shuffle(this.cards)
+        this.usedCards = new Array<Card>()
+        this.usedCardIdx = 0
+        this.clockWise = true
+        this.punishCardNum = this.defaultPunishCardNum
+        this.showPanel = false
     }
 
     private getCurPlayer():BasicPlayer{
