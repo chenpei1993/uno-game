@@ -55,7 +55,8 @@ export class Panel implements Item{
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.save()
         ctx.beginPath()
-        ctx.rect(this.pos.x, this.pos.y, this.width, this.height)
+        ctx.fillStyle = "#fff"
+        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
         ctx.closePath()
         ctx.stroke()
         if(this.option.title){

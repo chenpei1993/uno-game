@@ -125,6 +125,14 @@ export class Dealer implements Player, Drawable, Clickable{
             ctx.drawImage(card.getImage(), x + j * this.interval,
                 y, card.getWidth(), card.getHeight())
         }
+
+        //TODO
+        ctx.fillText("当前惩罚张数： " + this.punishCardNum, x, y + 100)
+        let color = "-"
+        if(this.usedCards.length > 0){
+            color = this.usedCards[this.usedCards.length - 1].getColor()
+        }
+        ctx.fillText("当前颜色： " + color, x + 200, y + 100)
         if(this.timer){
             this.timer.draw(ctx)
         }
