@@ -4,12 +4,12 @@ import {Item} from "../Item";
 
 export class TextTag implements Item{
 
-    private pos: Point
-    private text: string
-    private font: string
-    private color: string
-    private width: number
-    private height: number
+    protected pos: Point
+    protected text: string
+    protected font: string
+    protected color: string
+    protected width: number
+    protected height: number
 
     constructor(pos: Point, text: string, color: string, font: string, width: number = 100, height: number = 100) {
         this.pos = pos
@@ -26,7 +26,7 @@ export class TextTag implements Item{
         let box = ctx.measureText(this.text)
         let x = this.pos.x - box.width / 2
         let y = this.pos.y + box.fontBoundingBoxDescent
-        ctx.fillStyle = "#000"
+        ctx.fillStyle = this.color
         ctx.fillText(this.text, x, y)
         ctx.restore()
     }

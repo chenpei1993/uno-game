@@ -34,7 +34,7 @@ export abstract class BasicButton implements Button<ButtonOption>{
             if(this.pos.x < x && x < this.pos.x + this.option.width
                 && this.pos.y < y && y < this.pos.y + this.option.height){
                 if(this.option.func){
-                    this.option.func()
+                    this.option.func(null)
                 }
             }
         }

@@ -12,6 +12,7 @@ import {LeftPlayer} from "../item/LeftPlayer";
 import {RightPlayer} from "../item/RightPlayer";
 import {TopPlayer} from "../item/TopPlayer";
 import {CircleButton} from "../common/button/CircleButton";
+import {GameSetting} from "../GameSetting";
 
 export class SettingScene implements Scene{
 
@@ -49,7 +50,11 @@ export class SettingScene implements Scene{
         this.volumeTag = new TextTag(new Point(x, 120), "音量", null, null)
         this.volume = new SliderButton(new Point(x + margin, 120), null)
         this.fpsTag = new TextTag(new Point(x, 170), "显示FPS", null, null)
-        this.fps = new SwitchButton(new Point(x + margin, 170), null)
+        this.fps = new SwitchButton(new Point(x + margin, 170), {
+            func: (value) => {
+                GameSetting.setFps(value)
+            }
+        })
 
         this.closeButton = new CircleButton(new Point(w - 60, 0), {
             text:"x",

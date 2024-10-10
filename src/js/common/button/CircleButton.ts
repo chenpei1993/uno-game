@@ -46,7 +46,7 @@ export class CircleButton extends BasicButton{
     click(x: number, y: number): void {
         if(this.ox && this.oy){
             if(Math.pow(this.ox - x, 2) + Math.pow(this.oy - y, 2) <= Math.pow(this.option.radius, 2)){
-                this.option.func()
+                this.option.func(null)
             }
         }
     }

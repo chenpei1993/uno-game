@@ -68,7 +68,7 @@ export class SwitchButton extends BasicButton {
             && this.pos.y < y && y < this.pos.y + this.option.height){
             this.setSliderX(x)
             if(this.option.func){
-                this.option.func()
+                this.option.func(this.value)
             }
         }
     }

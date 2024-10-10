@@ -7,7 +7,7 @@ export class System {
     public static setDeltaTime(time: number){
         System.delta = (time - System.time)  / 1000
         System.time = time
-        System.fps = 1 /  System.time
+        System.fps = 1 /  System.delta
     }
 
     public static getDeltaTime(): number{

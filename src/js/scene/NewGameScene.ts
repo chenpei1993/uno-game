@@ -11,6 +11,11 @@ import {RightPlayer} from "../item/RightPlayer";
 import {TopPlayer} from "../item/TopPlayer";
 import {CircleButton} from "../common/button/CircleButton";
 import {SimpleAI} from "../strategy/SimpleAI";
+import {TextTag} from "../common/text/TextTag";
+import {System} from "../System";
+import {ClockTimer} from "../common/text/ClockTimer";
+import {FixedUpdateValueTextTag} from "../common/text/FixedUpdateValueTextTag";
+import {GameSetting} from "../GameSetting";
 
 export class NewGameScene implements Scene{
     private sceneType: SceneType
@@ -22,6 +27,8 @@ export class NewGameScene implements Scene{
     private rightPlayer: BasicPlayer
     private topPlayer: BasicPlayer
     private closeButton: CircleButton
+    private fps: TextTag
+
     constructor(sceneType: SceneType, container: Container, sceneManager: SceneManager) {
         this.sceneType = sceneType
         this.container = container
@@ -39,6 +46,7 @@ export class NewGameScene implements Scene{
         this.dealer.register(this.rightPlayer.getName(), this.rightPlayer)
         this.topPlayer = new TopPlayer("top", w, h, this.dealer, new SimpleAI())
         this.dealer.register(this.topPlayer.getName(), this.topPlayer)
+
         this.closeButton = new CircleButton(new Point(w - 60, 0), {
             text:"x",
             font: "28px ",
@@ -48,6 +56,13 @@ export class NewGameScene implements Scene{
                 this.sceneManager.nextScene(SceneType.Main)
             }
         })
+
+        let fpsStr =  "FPS: "
+        this.fps = new FixedUpdateValueTextTag(new Point( w - 60, 14),fpsStr.toString(),
+            "white", "12px",100, 100,
+            ()=>{
+                return "FPS: " + System.getFPS().toFixed(0)
+            }, 500)
     }
 
     init(){
@@ -71,6 +86,9 @@ export class NewGameScene implements Scene{
         this.rightPlayer.draw(ctx)
         this.dealer.draw(ctx)
         ctx.restore()
+        if(GameSetting.getFps()){
+            this.fps.draw(ctx)
+        }
     }
 
     getSceneType(): SceneType {
