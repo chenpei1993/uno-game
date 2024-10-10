@@ -8,12 +8,16 @@ export class TextTag implements Item{
     private text: string
     private font: string
     private color: string
+    private width: number
+    private height: number
 
-    constructor(pos: Point, text: string, color: string, font: string) {
+    constructor(pos: Point, text: string, color: string, font: string, width: number = 100, height: number = 100) {
         this.pos = pos
         this.text = text
         this.color = color ?? "#000"
         this.font = font ?? "18px serif"
+        this.width = width
+        this.height = height
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
@@ -28,7 +32,7 @@ export class TextTag implements Item{
     }
 
     getHeight(): number {
-        return 100
+        return this.height
     }
 
     getPosition(): Point {
@@ -36,8 +40,7 @@ export class TextTag implements Item{
     }
 
     getWidth(): number {
-        //TODO
-        return 100
+        return this.width
     }
 
     setPosition(pos: Point): void {

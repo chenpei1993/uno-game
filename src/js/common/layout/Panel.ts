@@ -19,8 +19,7 @@ export class Panel implements Item{
     }
 
     private init(){
-        let width = 0
-        let height = 0
+
         if(this.option.title){
             this.width = Math.max(this.width , this.option.title.getWidth())
             this.height += this.option.title.getHeight() + this.offset
@@ -37,7 +36,6 @@ export class Panel implements Item{
 
         let h = this.offset
         if(this.option.title){
-            //TextTag设计的有问题
             this.option.title.setPosition(new Point(this.pos.x + this.width / 2, this.pos.y + h))
             h += this.option.title.getHeight() + this.offset
         }

@@ -41,6 +41,7 @@ export class RectButton extends BasicButton{
         }
         if(this.option.text){
             ctx.font = this.option.font
+            ctx.fillStyle = this.option.textColor
             let textBox = ctx.measureText(this.option.text)
             let x = this.pos.x + this.option.width / 2 - textBox.width / 2
             let h = textBox.actualBoundingBoxDescent + textBox.actualBoundingBoxAscent

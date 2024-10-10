@@ -42,11 +42,14 @@ export class Dealer implements Player, Drawable, Clickable{
     private names: string[] = ["user",  "left", "top", "right"]
     private rule: Rule
     private panel: Panel
+    private winnerPanel: Panel
     private curCard: Card
     private showPanel: boolean
     private gameEnd: boolean
+    private container: Container
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
+        this.container = container;
         this.cardBox = new CardBox(container, cardWidth, cardHeight)
         this.cards = this.cardBox.getCards()
         ArrayUtil.shuffle(this.cards)
@@ -85,6 +88,17 @@ export class Dealer implements Player, Drawable, Clickable{
         let x = container.getWidth() / 2 - colors.getWidth() / 2
         this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "", "24px serif"), body: colors})
         this.gameEnd = false
+        this.winnerPanel = null
+    }
+
+    private createWinnerPanel(): void{
+        let newGameDiv = new Div(new Point(0, 0), {orientation: OrientType.horizon});
+        newGameDiv.addItem(new RectButton(null, {text: "新游戏", width: 200, height: 50, backgroundColor: "#fff",
+            func:() => {this.newGame()}}))
+        let x = this.container.getWidth() / 2 - newGameDiv.getWidth() / 2
+        let winner = this.getCurPlayer().getName()
+        this.winnerPanel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "获胜者：" + winner,
+                "", "24px serif", 200), body: newGameDiv})
     }
 
     choose(): UnoColorType {
@@ -115,6 +129,7 @@ export class Dealer implements Player, Drawable, Clickable{
     draw(ctx: CanvasRenderingContext2D): void {
         if(this.gameEnd){
             // 赢家界面
+            this.winnerPanel.draw(ctx)
             return
         }
 
@@ -166,11 +181,11 @@ export class Dealer implements Player, Drawable, Clickable{
             return false
         }
 
-
         if(res ==UnoRuleType.ok){
             //检查当前选手的手牌，如果手牌为0，成代表成功
             console.log(player.getName() + " " + player.getHoldCardNum())
             if(player.getHoldCardNum() == 1){
+                this.createWinnerPanel()
                 this.gameEnd = true
             }else{
                 this.nextTurn(cards)
@@ -262,9 +277,13 @@ export class Dealer implements Player, Drawable, Clickable{
         this.clockWise = true
         this.punishCardNum = this.defaultPunishCardNum
         this.showPanel = false
+        this.gameEnd = false
     }
 
     private getCurPlayer():BasicPlayer{
+        console.log(this.players)
+        console.log(this.names)
+        console.log(this.turn)
         return this.players.get(this.names[this.turn])
     }
 
@@ -296,6 +315,7 @@ export class Dealer implements Player, Drawable, Clickable{
         if(!this.isRobotTurn()){
             this.panel.click(x, y)
         }
+        this.winnerPanel.click(x, y)
     }
 
     handleChosenColor(color: UnoColorType):void {

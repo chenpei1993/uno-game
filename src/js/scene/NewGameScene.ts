@@ -56,10 +56,7 @@ export class NewGameScene implements Scene{
 
     click(x: number, y: number): void {
         this.closeButton.click(x,y)
-
         this.player.click(x, y)
-
-
         this.dealer.click(x, y)
     }
 
@@ -67,13 +64,13 @@ export class NewGameScene implements Scene{
         ctx.save()
         let backgroundImg = this.container.getImage("Table_2")
         ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
-        ctx.restore()
         this.closeButton.draw(ctx)
         this.player.draw(ctx)
         this.leftPlayer.draw(ctx)
         this.topPlayer.draw(ctx)
         this.rightPlayer.draw(ctx)
         this.dealer.draw(ctx)
+        ctx.restore()
     }
 
     getSceneType(): SceneType {
