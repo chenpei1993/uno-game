@@ -1,5 +1,5 @@
 import {Rule} from "./Rule";
-import {Card} from "../item/Card";
+import {Card} from "../character/Card";
 import {UnoRuleType} from "../const/UnoRuleType";
 import {UnoCardType} from "../const/UnoCardType";
 import {UnoColorType} from "../const/UnoColorType";

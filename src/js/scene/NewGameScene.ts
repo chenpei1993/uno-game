@@ -2,20 +2,20 @@ import {Scene} from "./Scene";
 import {Container} from "../Container";
 import {SceneType} from "../const/SceneType";
 import {SceneManager} from "./SceneManager";
-import {Dealer} from "../item/Dealer";
-import {BasicPlayer} from "../item/BasicPlayer";
-import {UserPlayer} from "../item/UserPlayer";
+import {Dealer} from "../character/Dealer";
+import {BasicPlayer} from "../character/BasicPlayer";
+import {UserPlayer} from "../character/UserPlayer";
 import {Point} from "../ui/common/Point";
-import {LeftPlayer} from "../item/LeftPlayer";
-import {RightPlayer} from "../item/RightPlayer";
-import {TopPlayer} from "../item/TopPlayer";
+import {LeftPlayer} from "../character/LeftPlayer";
+import {RightPlayer} from "../character/RightPlayer";
+import {TopPlayer} from "../character/TopPlayer";
 import {CircleButton} from "../ui/common/button/CircleButton";
 import {SimpleAI} from "../strategy/SimpleAI";
 import {TextTag} from "../ui/common/text/TextTag";
 import {System} from "../System";
 import {FixedUpdateValueTextTag} from "../ui/common/text/FixedUpdateValueTextTag";
 import {GameSetting} from "../GameSetting";
-import {Background} from "../util/Background";
+import {Background} from "../ui/widget/Background";
 
 export class NewGameScene implements Scene{
     private sceneType: SceneType

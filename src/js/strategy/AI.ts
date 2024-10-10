@@ -1,4 +1,4 @@
-import {Card} from "../item/Card";
+import {Card} from "../character/Card";
 import {UnoColorType} from "../const/UnoColorType";
 
 export interface AI{

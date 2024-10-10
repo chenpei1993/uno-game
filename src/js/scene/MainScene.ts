@@ -7,7 +7,7 @@ import {SceneType} from "../const/SceneType";
 import {SceneManager} from "./SceneManager";
 import {SnowEffect} from "../ui/effect/SnowEffect";
 import {TextTag} from "../ui/common/text/TextTag";
-import {Background} from "../util/Background";
+import {Background} from "../ui/widget/Background";
 
 export class MainScene implements Scene{
     private sceneType: SceneType

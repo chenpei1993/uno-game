@@ -10,7 +10,7 @@ import {CircleButton} from "../ui/common/button/CircleButton";
 import {GameSetting} from "../GameSetting";
 import {Select} from "../ui/common/select/Select";
 import {SelectOption} from "../ui/common/select/SelectOption";
-import {Background} from "../util/Background";
+import {Background} from "../ui/widget/Background";
 
 export class SettingScene implements Scene{
 

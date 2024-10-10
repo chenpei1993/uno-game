@@ -1,5 +1,5 @@
-import {GameSetting} from "../GameSetting";
-import {Container} from "../Container";
+import {GameSetting} from "../../GameSetting";
+import {Container} from "../../Container";
 
 export class Background{
 

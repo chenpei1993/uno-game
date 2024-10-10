@@ -1,5 +1,5 @@
 import {AI} from "./AI";
-import {Card} from "../item/Card";
+import {Card} from "../character/Card";
 import {UnoCardType} from "../const/UnoCardType";
 import {UnoColorType} from "../const/UnoColorType";
 
