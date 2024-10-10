@@ -1,4 +1,4 @@
-import {Drawable} from "../Drawable";
+import {Drawable} from "../ui/Drawable";
 
 export class Desk implements Drawable{
     private width: number

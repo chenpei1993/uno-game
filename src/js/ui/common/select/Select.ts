@@ -1,7 +1,7 @@
 import {Point} from "../Point";
-import {Drawable} from "../../../Drawable";
+import {Drawable} from "../../Drawable";
 import {SelectOption} from "./SelectOption";
-import {Clickable} from "../../../Clickable";
+import {Clickable} from "../../Clickable";
 
 export class Select implements Drawable, Clickable{
 

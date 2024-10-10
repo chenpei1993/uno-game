@@ -1,5 +1,5 @@
 import {Point} from "../Point";
-import {Drawable} from "../../../Drawable";
+import {Drawable} from "../../Drawable";
 import {Item} from "../Item";
 
 export class TextTag implements Item{

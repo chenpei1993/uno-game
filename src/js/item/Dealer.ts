@@ -1,6 +1,6 @@
 import {Card} from "./Card";
 import {CardBox} from "./CardBox";
-import {Drawable} from "../Drawable";
+import {Drawable} from "../ui/Drawable";
 import {Container} from "../Container";
 import {ArrayUtil} from "../util/ArrayUtil";
 import {Player} from "./Player";
@@ -16,7 +16,7 @@ import {Div} from "../ui/common/layout/Div";
 import {RectButton} from "../ui/common/button/RectButton";
 import {TextTag} from "../ui/common/text/TextTag";
 import {OrientType} from "../ui/common/layout/OrientType";
-import {Clickable} from "../Clickable";
+import {Clickable} from "../ui/Clickable";
 import {UnoColorType} from "../const/UnoColorType";
 import {UnoChooseType} from "../const/UnoChooseType";
 

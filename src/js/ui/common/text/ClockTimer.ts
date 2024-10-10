@@ -1,4 +1,4 @@
-import {Drawable} from "../../../Drawable";
+import {Drawable} from "../../Drawable";
 import {Point} from "../Point";
 import {System} from "../../../System";
 

@@ -1,4 +1,4 @@
-import {Drawable} from "./Drawable";
+import {Drawable} from "./ui/Drawable";
 import {ImageComponent} from "./component/ImageComponent";
 import {ConfigComponent} from "./component/ConfigComponent";
 import {LogComponent} from "./component/LogComponent";

@@ -1,4 +1,4 @@
-import {Drawable} from "../../../Drawable";
+import {Drawable} from "../../Drawable";
 import {AlertTag} from "./AlertTag";
 import {Point} from "../Point";
 import {ErrorAlertTag} from "./ErrorAlertTag";

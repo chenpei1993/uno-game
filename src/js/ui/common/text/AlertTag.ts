@@ -1,5 +1,5 @@
 import {Point} from "../Point";
-import {Drawable} from "../../../Drawable";
+import {Drawable} from "../../Drawable";
 import {System} from "../../../System";
 
 export class AlertTag implements Drawable{
