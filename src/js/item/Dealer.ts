@@ -44,6 +44,7 @@ export class Dealer implements Player, Drawable, Clickable{
     private panel: Panel
     private curCard: Card
     private showPanel: boolean
+    private gameEnd: boolean
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
         this.cardBox = new CardBox(container, cardWidth, cardHeight)
@@ -83,6 +84,7 @@ export class Dealer implements Player, Drawable, Clickable{
 
         let x = container.getWidth() / 2 - colors.getWidth() / 2
         this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "", "24px serif"), body: colors})
+        this.gameEnd = false
     }
 
     choose(): UnoColorType {
@@ -111,6 +113,11 @@ export class Dealer implements Player, Drawable, Clickable{
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
+        if(this.gameEnd){
+            // 赢家界面
+            return
+        }
+
         if(!this.timer.isLive()){
             let player = this.players.get(this.names[this.turn])
             player.getCards(this.givePunishCard())
@@ -159,10 +166,15 @@ export class Dealer implements Player, Drawable, Clickable{
             return false
         }
 
-        //检查当前选手的手牌，如果手牌为0，成代表成功
 
         if(res ==UnoRuleType.ok){
-            this.nextTurn(cards)
+            //检查当前选手的手牌，如果手牌为0，成代表成功
+            console.log(player.getName() + " " + player.getHoldCardNum())
+            if(player.getHoldCardNum() == 1){
+                this.gameEnd = true
+            }else{
+                this.nextTurn(cards)
+            }
         }else if(res == UnoRuleType.reverse){
             //反转方向
             this.clockWise = !this.clockWise
@@ -259,6 +271,10 @@ export class Dealer implements Player, Drawable, Clickable{
     private isRobotTurn(): boolean{
         let player = this.players.get(this.names[this.turn])
         return player.isRobot()
+    }
+
+    isMyTurn(player: Player): boolean{
+        return this.getCurPlayer().getName() == player.getName()
     }
 
     getInfoFromDeal(cards: Card[]): void {

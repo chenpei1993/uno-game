@@ -42,6 +42,10 @@ export abstract class BasicPlayer implements Drawable, Clickable, Player{
         return null
     }
 
+    getHoldCardNum(): number{
+        return this.holdCards.length
+    }
+
 
     click(x: number, y: number){
         throw new Error("unsupported func")

@@ -72,6 +72,10 @@ export class UserPlayer extends BasicPlayer {
     }
 
     click(x: number, y: number){
+        if(!this.dealer.isMyTurn(this)){
+            return
+        }
+
         this.playButton.click(x, y)
 
         this.punishButton.click(x, y)
