@@ -24,6 +24,7 @@ export class SliderButton extends BasicButton {
         })
         this.updateConfig()
         this.r = this.option.height / 2
+        this.pos.y = this.pos.y - this.r
         this.sliderX = this.pos.x +  this.r
         this.sliderY = this.pos.y +  this.r
 

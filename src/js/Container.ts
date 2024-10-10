@@ -67,7 +67,6 @@ export class Container{
         this.sceneManager.init()
 
         window.addEventListener("click", (e) => {
-            console.log(e.offsetX, e.offsetY)
             this.sceneManager.getCurScene().click(e.offsetX, e.offsetY)
         })
     }

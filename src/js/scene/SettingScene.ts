@@ -44,11 +44,12 @@ export class SettingScene implements Scene{
         let h =  this.container.getHeight()
 
         this.musicTag = new TextTag(new Point(x, 70), "音乐", null, null)
-        this.music = new SwitchButton(new Point(x + margin, 50), null)
+        this.music = new SwitchButton(new Point(x + margin, 70), null)
+
         this.volumeTag = new TextTag(new Point(x, 120), "音量", null, null)
-        this.volume = new SliderButton(new Point(x + margin, 100), null)
+        this.volume = new SliderButton(new Point(x + margin, 120), null)
         this.fpsTag = new TextTag(new Point(x, 170), "显示FPS", null, null)
-        this.fps = new SwitchButton(new Point(x + margin, 150), null)
+        this.fps = new SwitchButton(new Point(x + margin, 170), null)
 
         this.closeButton = new CircleButton(new Point(w - 60, 0), {
             text:"x",
