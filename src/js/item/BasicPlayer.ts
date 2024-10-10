@@ -64,4 +64,7 @@ export abstract class BasicPlayer implements Drawable, Clickable, Player{
         }
     }
 
+    isRobot() {
+        return false;
+    }
 }

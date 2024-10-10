@@ -157,7 +157,11 @@ export class Dealer implements Player, Drawable, Clickable{
         if(res == UnoRuleType.error){
             this.alertManager.addError("请选择符合规则的牌！")
             return false
-        }else if(res ==UnoRuleType.ok){
+        }
+
+        //检查当前选手的手牌，如果手牌为0，成代表成功
+
+        if(res ==UnoRuleType.ok){
             this.nextTurn(cards)
         }else if(res == UnoRuleType.reverse){
             //反转方向
@@ -184,7 +188,6 @@ export class Dealer implements Player, Drawable, Clickable{
         }
 
         return true
-
     }
 
     nextTurn(cards: Card[]){
@@ -253,6 +256,11 @@ export class Dealer implements Player, Drawable, Clickable{
         return this.players.get(this.names[this.turn])
     }
 
+    private isRobotTurn(): boolean{
+        let player = this.players.get(this.names[this.turn])
+        return player.isRobot()
+    }
+
     getInfoFromDeal(cards: Card[]): void {
         if(cards.length > 0){
             this.usedCards = this.usedCards.concat(cards)
@@ -269,7 +277,9 @@ export class Dealer implements Player, Drawable, Clickable{
     }
 
     click(x: number, y: number): void {
-        this.panel.click(x, y)
+        if(!this.isRobotTurn()){
+            this.panel.click(x, y)
+        }
     }
 
     handleChosenColor(color: UnoColorType):void {

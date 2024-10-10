@@ -63,4 +63,8 @@ export class RobotPlayer extends BasicPlayer{
             this.dealer.handleChosenColor(color)
         }, random)
     }
+
+    isRobot(): boolean {
+        return true
+    }
 }
