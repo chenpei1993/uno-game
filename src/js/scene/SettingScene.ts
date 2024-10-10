@@ -13,6 +13,9 @@ import {RightPlayer} from "../item/RightPlayer";
 import {TopPlayer} from "../item/TopPlayer";
 import {CircleButton} from "../common/button/CircleButton";
 import {GameSetting} from "../GameSetting";
+import {Select} from "../common/select/Select";
+import {SelectOption} from "../common/select/SelectOption";
+import {Background} from "../util/Background";
 
 export class SettingScene implements Scene{
 
@@ -25,6 +28,8 @@ export class SettingScene implements Scene{
     private volumeTag: TextTag
     private fps: SwitchButton
     private fpsTag: TextTag
+    private bg: Select
+    private bgTag: TextTag
     private closeButton: CircleButton
     private intervalY: number
     private baseY: number
@@ -56,6 +61,17 @@ export class SettingScene implements Scene{
             }
         })
 
+        let options: SelectOption[] = []
+        let defaultOption = new SelectOption("背景2", "Table_2")
+        options.push(new SelectOption("背景1", "Table_1"))
+        options.push(defaultOption)
+        options.push(new SelectOption("背景3", "Table_3"))
+        options.push(new SelectOption("背景4", "Table_4"))
+        this.bgTag = new TextTag(new Point(x, 220), "背景图片", null, null)
+        this.bg = new Select(new Point(x + margin, 220), options, defaultOption, (value) => {
+            GameSetting.setTableBg(value.getValue())
+        })
+
         this.closeButton = new CircleButton(new Point(w - 60, 0), {
             text:"x",
             font: "28px ",
@@ -77,17 +93,20 @@ export class SettingScene implements Scene{
         this.fps.click(x, y)
 
         this.closeButton.click(x,y)
+
+        this.bg.click(x, y)
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.save()
-        let backgroundImg = this.container.getImage("Table_2")
-        ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
+        Background.draw(ctx, this.container)
         ctx.fillText("设置", 0, 10)
         this.musicTag.draw(ctx)
         this.music.draw(ctx)
         this.volumeTag.draw(ctx)
         this.volume.draw(ctx)
+        this.bgTag.draw(ctx)
+        this.bg.draw(ctx)
         this.fpsTag.draw(ctx)
         this.fps.draw(ctx)
         this.closeButton.draw(ctx)

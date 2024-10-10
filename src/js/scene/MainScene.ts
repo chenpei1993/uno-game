@@ -7,6 +7,7 @@ import {SceneType} from "../const/SceneType";
 import {SceneManager} from "./SceneManager";
 import {SnowEffect} from "../effect/SnowEffect";
 import {TextTag} from "../common/text/TextTag";
+import {Background} from "../util/Background";
 
 export class MainScene implements Scene{
     private sceneType: SceneType
@@ -63,8 +64,7 @@ export class MainScene implements Scene{
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        let backgroundImg = this.container.getImage("Table_2")
-        ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
+        Background.draw(ctx, this.container)
 
         this.showEffect.draw(ctx)
         this.title.draw(ctx)

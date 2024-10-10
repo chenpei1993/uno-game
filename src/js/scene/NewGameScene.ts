@@ -16,6 +16,7 @@ import {System} from "../System";
 import {ClockTimer} from "../common/text/ClockTimer";
 import {FixedUpdateValueTextTag} from "../common/text/FixedUpdateValueTextTag";
 import {GameSetting} from "../GameSetting";
+import {Background} from "../util/Background";
 
 export class NewGameScene implements Scene{
     private sceneType: SceneType
@@ -77,8 +78,7 @@ export class NewGameScene implements Scene{
 
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.save()
-        let backgroundImg = this.container.getImage("Table_2")
-        ctx.drawImage(backgroundImg, 0, 0, this.container.getWidth(), this.container.getHeight())
+        Background.draw(ctx, this.container)
         this.closeButton.draw(ctx)
         this.player.draw(ctx)
         this.leftPlayer.draw(ctx)
