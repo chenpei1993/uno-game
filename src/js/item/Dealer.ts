@@ -183,7 +183,6 @@ export class Dealer implements Player, Drawable, Clickable{
 
         if(res ==UnoRuleType.ok){
             //检查当前选手的手牌，如果手牌为0，成代表成功
-            console.log(player.getName() + " " + player.getHoldCardNum())
             if(player.getHoldCardNum() == 1){
                 this.createWinnerPanel()
                 this.gameEnd = true
@@ -281,9 +280,6 @@ export class Dealer implements Player, Drawable, Clickable{
     }
 
     private getCurPlayer():BasicPlayer{
-        console.log(this.players)
-        console.log(this.names)
-        console.log(this.turn)
         return this.players.get(this.names[this.turn])
     }
 
@@ -315,7 +311,9 @@ export class Dealer implements Player, Drawable, Clickable{
         if(!this.isRobotTurn()){
             this.panel.click(x, y)
         }
-        this.winnerPanel.click(x, y)
+        if(this.winnerPanel){
+            this.winnerPanel.click(x, y)
+        }
     }
 
     handleChosenColor(color: UnoColorType):void {

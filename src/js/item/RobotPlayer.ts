@@ -43,7 +43,7 @@ export class RobotPlayer extends BasicPlayer{
     }
 
     chooseCard(): void{
-        let random = 5000
+        let random = 5
         setTimeout(e => {
             let card = this.giveACard()
             let res = this.dealer.getACard(card, this)
