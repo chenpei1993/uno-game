@@ -58,6 +58,16 @@ export class SliderButton extends BasicButton {
         ctx.restore()
     }
 
+    click(x: number, y: number): void {
+        if(this.pos.x < x && x < this.pos.x + this.option.width
+            && this.pos.y < y && y < this.pos.y + this.option.height){
+            this.setSliderX(x)
+            if(this.option.func){
+                this.option.func()
+            }
+        }
+    }
+
     setSliderX(x :number){
         if(x <= this.pos.x + this.r){
             this.sliderX = this.pos.x + this.r
