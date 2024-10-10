@@ -5,7 +5,6 @@ import {LogComponent} from "./component/LogComponent";
 import {Config} from "./Config";
 import {SceneManager} from "./scene/SceneManager";
 import {System} from "./System";
-import {AlertTag} from "./common/text/AlertTag";
 
 export class Container{
     private wrapper: HTMLElement

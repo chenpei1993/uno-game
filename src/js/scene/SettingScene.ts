@@ -2,19 +2,14 @@ import {Scene} from "./Scene";
 import {Container} from "../Container";
 import {SceneType} from "../const/SceneType";
 import {SceneManager} from "./SceneManager";
-import {SliderButton} from "../common/button/SliderButton";
-import {Point} from "../common/Point";
-import {SwitchButton} from "../common/button/SwitchButton";
-import {TextTag} from "../common/text/TextTag";
-import {Dealer} from "../item/Dealer";
-import {UserPlayer} from "../item/UserPlayer";
-import {LeftPlayer} from "../item/LeftPlayer";
-import {RightPlayer} from "../item/RightPlayer";
-import {TopPlayer} from "../item/TopPlayer";
-import {CircleButton} from "../common/button/CircleButton";
+import {SliderButton} from "../ui/common/button/SliderButton";
+import {Point} from "../ui/common/Point";
+import {SwitchButton} from "../ui/common/button/SwitchButton";
+import {TextTag} from "../ui/common/text/TextTag";
+import {CircleButton} from "../ui/common/button/CircleButton";
 import {GameSetting} from "../GameSetting";
-import {Select} from "../common/select/Select";
-import {SelectOption} from "../common/select/SelectOption";
+import {Select} from "../ui/common/select/Select";
+import {SelectOption} from "../ui/common/select/SelectOption";
 import {Background} from "../util/Background";
 
 export class SettingScene implements Scene{

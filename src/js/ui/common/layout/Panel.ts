@@ -1,7 +1,6 @@
 import {Item} from "../Item";
 import {Point} from "../Point";
 import {PanelOption} from "./PanelOption";
-import {Clickable} from "../../Clickable";
 
 export class Panel implements Item{
 

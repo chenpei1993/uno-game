@@ -1,6 +1,6 @@
-import {Drawable} from "../../Drawable";
+import {Drawable} from "../../../Drawable";
 import {Point} from "../Point";
-import {System} from "../../System";
+import {System} from "../../../System";
 
 export class ClockTimer implements Drawable{
 

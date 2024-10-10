@@ -1,8 +1,8 @@
 import {BasicPlayer} from "./BasicPlayer";
 import {Card} from "./Card";
 import {Dealer} from "./Dealer";
-import {RectRoundButton} from "../common/button/RectRoundButton";
-import {Point} from "../common/Point";
+import {RectRoundButton} from "../ui/common/button/RectRoundButton";
+import {Point} from "../ui/common/Point";
 import { UnoColorType } from "../const/UnoColorType";
 
 export class UserPlayer extends BasicPlayer {

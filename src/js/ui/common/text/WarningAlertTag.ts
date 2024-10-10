@@ -1,7 +1,4 @@
-import {Drawable} from "../../Drawable";
 import {Point} from "../Point";
-import {System} from "../../System";
-import {AlertManager} from "./AlertManager";
 import {AlertTag} from "./AlertTag";
 
 export class WarningAlertTag extends AlertTag{

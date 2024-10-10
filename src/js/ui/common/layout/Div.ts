@@ -1,11 +1,9 @@
 import {Point} from "../Point";
 import {DivOption} from "./DivOption";
-import {Drawable} from "../../Drawable";
 import {Item} from "../Item";
 import {OrientType} from "./OrientType";
-import {Clickable} from "../../Clickable";
 
-export class Div implements Item, Clickable{
+export class Div implements Item{
 
     private pos: Point
     private option: DivOption

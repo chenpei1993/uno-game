@@ -1,12 +1,12 @@
-import {Point} from "../common/Point";
+import {Point} from "../ui/common/Point";
 import {Scene} from "./Scene";
-import {RectRoundButton} from "../common/button/RectRoundButton";
-import {CircleButton} from "../common/button/CircleButton";
+import {RectRoundButton} from "../ui/common/button/RectRoundButton";
+import {CircleButton} from "../ui/common/button/CircleButton";
 import {Container} from "../Container";
 import {SceneType} from "../const/SceneType";
 import {SceneManager} from "./SceneManager";
-import {SnowEffect} from "../effect/SnowEffect";
-import {TextTag} from "../common/text/TextTag";
+import {SnowEffect} from "../ui/effect/SnowEffect";
+import {TextTag} from "../ui/common/text/TextTag";
 import {Background} from "../util/Background";
 
 export class MainScene implements Scene{

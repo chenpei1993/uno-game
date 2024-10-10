@@ -1,6 +1,4 @@
 import {Point} from "../Point";
-import {Drawable} from "../../Drawable";
-import {Item} from "../Item";
 import {TextTag} from "./TextTag";
 
 export class FixedUpdateValueTextTag extends TextTag{
