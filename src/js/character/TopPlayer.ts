@@ -1,8 +1,5 @@
-import {BasicPlayer} from "./BasicPlayer";
-import {Card} from "./Card";
 import {Dealer} from "./Dealer";
 import {AI} from "../strategy/AI";
-import {SimpleAI} from "../strategy/SimpleAI";
 import {RobotPlayer} from "./RobotPlayer";
 
 export class TopPlayer extends RobotPlayer{
@@ -26,7 +23,7 @@ export class TopPlayer extends RobotPlayer{
         ctx.rotate(- Math.PI)
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]
-            ctx.drawImage(card.getImage(), i * this.interval, 0, card.getWidth(), card.getHeight())
+            ctx.drawImage(card.getBackImage(), i * this.interval, 0, card.getWidth(), card.getHeight())
         }
         ctx.restore()
     }

@@ -5,7 +5,6 @@ import {Container} from "../Container";
 
 export class CardBox{
     private readonly cards: Card[]
-    private readonly cardDeck: Card
     private readonly container: Container
     private readonly prefix: string
     private readonly cardWidth: number
@@ -77,11 +76,10 @@ export class CardBox{
                 name = info[1]
             }
             let img = this.container.getImage(this.prefix + cardName)
-            let card = new Card(name, type, color, img, cardWidth, cardHeight)
+            let backImg = this.container.getImage("Deck")
+            let card = new Card(name, type, color, img, backImg, cardWidth, cardHeight)
             this.cards.push(card)
         }
-        let deckImg = this.container.getImage(this.prefix + "Deck")
-        this.cardDeck = new Card("deck", null, null, deckImg, cardWidth, cardHeight)
     }
 
     getCards(): Card[]{
@@ -94,10 +92,6 @@ export class CardBox{
 
     getCardWidth() : number{
         return this.cardWidth
-    }
-
-    getCardDeck(){
-        return this.cardDeck
     }
 
 }

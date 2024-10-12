@@ -27,7 +27,7 @@ export class LeftPlayer extends RobotPlayer{
         ctx.rotate(Math.PI / 2)
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]
-            ctx.drawImage(card.getImage(), i * this.interval, 0, card.getWidth(), card.getHeight())
+            ctx.drawImage(card.getBackImage(), i * this.interval, 0, card.getWidth(), card.getHeight())
         }
         ctx.restore()
     }

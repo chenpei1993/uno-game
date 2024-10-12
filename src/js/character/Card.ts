@@ -6,15 +6,17 @@ export class Card {
     private type: UnoCardType
     private color: UnoColorType
     private img: HTMLImageElement
+    private backImg: HTMLImageElement
     private width: number
     private height: number
     private punishNum: number = 0
 
-    constructor(name: string, type: UnoCardType, color: UnoColorType, img: HTMLImageElement, width: number, height: number) {
+    constructor(name: string, type: UnoCardType, color: UnoColorType, img: HTMLImageElement, backImg: HTMLImageElement, width: number, height: number) {
         this.name = name
         this.type = type
         this.color = color
         this.img = img
+        this.backImg = backImg
         this.width = width
         this.height = height
         if(this.type == UnoCardType.Draw){
@@ -28,6 +30,10 @@ export class Card {
 
     getImage(){
         return this.img
+    }
+
+    getBackImage(){
+        return this.backImg
     }
 
     getWidth(): number{
