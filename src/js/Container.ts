@@ -6,6 +6,8 @@ import {Config} from "./Config";
 import {SceneManager} from "./scene/SceneManager";
 import {System} from "./System";
 import {AudioComponent} from "./component/AudioComponent";
+import {GameSetting} from "./GameSetting";
+import {GameUtil} from "./util/GameUtil";
 
 export class Container{
     private wrapper: HTMLElement
@@ -38,6 +40,10 @@ export class Container{
         this.ctx.scale(this.dpr, this.dpr)
         this.wrapper.appendChild(this.canvas)
         this.config = config
+        window.addEventListener("resize", ()=>{
+            location.reload()
+        })
+        GameSetting.setScale(GameUtil.getScaleByScreen(this.width, this.height))
     }
 
     _run(){

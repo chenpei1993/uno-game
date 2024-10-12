@@ -3,6 +3,8 @@ export class GameSetting{
 
     static tableBg: string
 
+    static scale: number
+
     static setFps(fps: boolean){
         GameSetting.fps = fps
     }
@@ -17,5 +19,13 @@ export class GameSetting{
 
     static getTableBg(): string{
         return GameSetting.tableBg
+    }
+
+    static getScale(): number{
+        return GameSetting.scale
+    }
+
+    static setScale(scale: number): void{
+        GameSetting.scale = scale
     }
 }

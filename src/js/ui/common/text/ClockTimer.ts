@@ -30,7 +30,7 @@ export class ClockTimer implements Drawable{
         ctx.save()
         ctx.font = this.option.font
         let textBox = ctx.measureText(text)
-        this.ox = this.pos.x - textBox.width / 2
+        this.ox = this.pos.x - this.option.radius / 2
         let h = textBox.actualBoundingBoxDescent + textBox.actualBoundingBoxAscent
         this.oy = this.pos.y - h / 2
         ctx.beginPath()

@@ -6,11 +6,8 @@ import {RobotPlayer} from "./RobotPlayer";
 
 export class LeftPlayer extends RobotPlayer{
 
-    private interval: number
-
     constructor(name: string, width: number, height: number, dealer: Dealer, ai: AI) {
         super(name, width, height, dealer, ai)
-        this.interval = 20
     }
 
     draw(ctx: CanvasRenderingContext2D) {

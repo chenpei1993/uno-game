@@ -13,7 +13,7 @@ export class UserPlayer extends BasicPlayer {
     private chosenCard: Card
     private chosenCardIdx: number
     private chosenHeight: number
-    private interval: number
+    private cardInterval: number
     private playButton: RectRoundButton
     private punishButton: RectRoundButton
 
@@ -21,10 +21,10 @@ export class UserPlayer extends BasicPlayer {
         super(name, width, height,dealer)
         this.chosenCard = null
         this.chosenHeight = 10
-        this.interval = 20
+        this.cardInterval = Math.max(20, Math.min(this.dealer.getCardWidth() / 2, 40))
         let mid = width / 2
         let interval = 20
-        this.playButton = new RectRoundButton(new Point(mid + interval, height - 100), {
+        this.playButton = new RectRoundButton(new Point(mid + 2 * interval, height - this.dealer.getCardHeight() - 40), {
             text:"出牌",
             font: "28px ",
             textColor: "black",
@@ -39,7 +39,7 @@ export class UserPlayer extends BasicPlayer {
                 this.uno()
             }
         })
-        this.punishButton = new RectRoundButton(new Point(mid - 3 *interval, height - 100), {
+        this.punishButton = new RectRoundButton(new Point(mid - 2 * interval - 50, height - this.dealer.getCardHeight() - 40), {
             text:"放弃",
             font: "28px ",
             textColor: "red",
@@ -55,15 +55,16 @@ export class UserPlayer extends BasicPlayer {
     draw(ctx: CanvasRenderingContext2D) {
         if(this.holdCards.length > 0){
             let card = this.holdCards[0]
-            let w = (this.holdCards.length - 1) * this.interval + card.getWidth()
+            let interval = Math.max(20, Math.min(card.getWidth() / 2, 40))
+            let w = (this.holdCards.length - 1) * interval + card.getWidth()
             let x = this.width / 2 - w / 2
             let y = this.height - card.getHeight()
             for(let i = 0; i < this.holdCards.length; i++){
                 let card = this.holdCards[i]
                 if(this.chosenCard === card){
-                    ctx.drawImage(card.getImage(), x + i * this.interval, y - this.chosenHeight, card.getWidth(), card.getHeight())
+                    ctx.drawImage(card.getImage(), x + i * interval, y - this.chosenHeight, card.getWidth(), card.getHeight())
                 }else{
-                    ctx.drawImage(card.getImage(), x + i * this.interval, y, card.getWidth(), card.getHeight())
+                    ctx.drawImage(card.getImage(), x + i * interval, y, card.getWidth(), card.getHeight())
                 }
             }
         }
@@ -81,15 +82,15 @@ export class UserPlayer extends BasicPlayer {
 
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]
-            let w = (this.holdCards.length - 1) * this.interval + card.getWidth()
-            let x1 = this.width / 2 - w / 2 + i * this.interval
+            let w = (this.holdCards.length - 1) * this.cardInterval + card.getWidth()
+            let x1 = this.width / 2 - w / 2 + i * this.cardInterval
             let y1 = this.height - card.getHeight()
 
             if(this.chosenCard === card){
                 y1 = y1 - this.chosenHeight
             }
 
-            let cw = i === this.holdCards.length - 1 ? card.getWidth() : this.interval
+            let cw = i === this.holdCards.length - 1 ? card.getWidth() : this.cardInterval
             if(x1  < x  && x < x1 + cw
                 && y1 < y && y < y1 + card.getHeight()){
                 if(this.chosenCard === card){

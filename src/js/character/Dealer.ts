@@ -49,7 +49,6 @@ export class Dealer implements Player, Drawable, Clickable{
     private container: Container
     private cardAudio: HTMLAudioElement
     private errorAudio: HTMLAudioElement
-    private failAudio: HTMLAudioElement
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
         this.container = container;
@@ -153,13 +152,13 @@ export class Dealer implements Player, Drawable, Clickable{
                 y, card.getWidth(), card.getHeight())
         }
 
-        //TODO
-        ctx.fillText("当前惩罚张数： " + this.punishCardNum, x, y + 100)
+        let h = y + this.getCardHeight() + 20
+        ctx.fillText("当前惩罚张数： " + this.punishCardNum, x, h)
         let color = "-"
         if(this.usedCards.length > 0){
             color = this.usedCards[this.usedCards.length - 1].getColor()
         }
-        ctx.fillText("当前颜色： " + color, x + 200, y + 100)
+        ctx.fillText("当前颜色： " + color, x + 200, h)
         if(this.timer){
             this.timer.draw(ctx)
         }
@@ -335,5 +334,12 @@ export class Dealer implements Player, Drawable, Clickable{
         this.nextTurn([this.curCard])
     }
 
+    getCardWidth(){
+        return this.cards[0].getWidth()
+    }
+
+    getCardHeight(){
+        return this.cards[0].getHeight()
+    }
 
 }

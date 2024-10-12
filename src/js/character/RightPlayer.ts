@@ -7,11 +7,8 @@ import {RobotPlayer} from "./RobotPlayer";
 
 export class RightPlayer extends RobotPlayer{
 
-    private interval: number
-
     constructor(name: string,width: number, height: number, dealer: Dealer, ai: AI) {
         super(name, width, height, dealer, ai)
-        this.interval = 20
     }
 
     draw(ctx: CanvasRenderingContext2D) {
@@ -27,7 +24,7 @@ export class RightPlayer extends RobotPlayer{
         ctx.rotate(- Math.PI * 0.5)
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]
-            ctx.drawImage(card.getBackImage(), i * this.interval, 0, card.getWidth(), card.getHeight())
+            ctx.drawImage(card.getImage(), i * this.interval, 0, card.getWidth(), card.getHeight())
         }
         ctx.restore()
 

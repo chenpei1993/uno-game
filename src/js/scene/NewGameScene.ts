@@ -33,11 +33,12 @@ export class NewGameScene implements Scene{
         this.sceneType = sceneType
         this.container = container
         this.sceneManager = sceneManager
-        //TODO
         let w = this.container.getWidth()
         let h =  this.container.getHeight()
+        let cardWidth = 50 * GameSetting.getScale()
+        let cardHeight = 60 * GameSetting.getScale()
         this.dealer = new Dealer(this.container,
-            new Point(60, 60), w - 2 * 60, h - 2 * 60, 50, 60)
+            new Point(cardHeight, cardHeight), w - 2 * cardHeight, h - 2 * cardHeight, cardWidth, cardHeight)
         this.player = new UserPlayer("user", w, h, this.dealer)
         this.dealer.register(this.player.getName(), this.player)
         this.leftPlayer = new LeftPlayer("left", w, h, this.dealer, new SimpleAI())
