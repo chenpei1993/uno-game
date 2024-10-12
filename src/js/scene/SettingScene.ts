@@ -19,6 +19,7 @@ export class SettingScene implements Scene{
     private sceneManager: SceneManager
     private music: SwitchButton
     private musicTag: TextTag
+    private title: TextTag
     private volume: SliderButton
     private volumeTag: TextTag
     private fps: SwitchButton
@@ -35,7 +36,7 @@ export class SettingScene implements Scene{
         this.sceneManager = sceneManager
 
         this.intervalY = 50
-        this.baseY = 150
+        this.baseY = 100
         let margin = 50
 
 
@@ -44,8 +45,11 @@ export class SettingScene implements Scene{
         let w = this.container.getWidth()
         let h =  this.container.getHeight()
 
-        this.musicTag = new TextTag(new Point(x, 70), "音乐", null, null)
-        this.music = new SwitchButton(new Point(x + margin, 70), {
+        this.title = new TextTag(new Point(this.container.getWidth() / 2, y), "设置", "#000", "30px serif")
+        y += this.intervalY
+
+        this.musicTag = new TextTag(new Point(x, y), "音乐", null, null)
+        this.music = new SwitchButton(new Point(x + margin, y), {
             func: (value) => {
                 let ele = this.container.getAudio("background")
                 if(value){
@@ -56,31 +60,33 @@ export class SettingScene implements Scene{
                 }
             }
         })
+        y += this.intervalY
 
-        this.volumeTag = new TextTag(new Point(x, 120), "音量", null, null)
-        this.volume = new SliderButton(new Point(x + margin, 120), true, {
+        this.volumeTag = new TextTag(new Point(x, y), "音量", null, null)
+        this.volume = new SliderButton(new Point(x + margin, y), true, {
             func: (value) => {
                 let ele = this.container.getAudio("background")
                 ele.volume = value
             }
         })
+        y += this.intervalY
 
-
-        this.fpsTag = new TextTag(new Point(x, 170), "显示FPS", null, null)
-        this.fps = new SwitchButton(new Point(x + margin, 170), {
+        this.fpsTag = new TextTag(new Point(x, y), "显示FPS", null, null)
+        this.fps = new SwitchButton(new Point(x + margin, y), {
             func: (value) => {
                 GameSetting.setFps(value)
             }
         })
 
+        y += this.intervalY
         let options: SelectOption[] = []
         let defaultOption = new SelectOption("背景2", "Table_2")
         options.push(new SelectOption("背景1", "Table_1"))
         options.push(defaultOption)
         options.push(new SelectOption("背景3", "Table_3"))
         options.push(new SelectOption("背景4", "Table_4"))
-        this.bgTag = new TextTag(new Point(x, 220), "背景图片", null, null)
-        this.bg = new Select(new Point(x + margin, 220), options, defaultOption, (value) => {
+        this.bgTag = new TextTag(new Point(x, y), "背景图片", null, null)
+        this.bg = new Select(new Point(x + margin, y), options, defaultOption, (value) => {
             GameSetting.setTableBg(value.getValue())
         })
 
@@ -113,6 +119,7 @@ export class SettingScene implements Scene{
         ctx.save()
         Background.draw(ctx, this.container)
         ctx.fillText("设置", 0, 10)
+        this.title.draw(ctx)
         this.musicTag.draw(ctx)
         this.music.draw(ctx)
         this.volumeTag.draw(ctx)

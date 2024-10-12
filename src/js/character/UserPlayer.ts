@@ -40,7 +40,7 @@ export class UserPlayer extends BasicPlayer {
             }
         })
         this.punishButton = new RectRoundButton(new Point(mid - 3 *interval, height - 100), {
-            text:"惩罚",
+            text:"放弃",
             font: "28px ",
             textColor: "red",
             width: 50,
