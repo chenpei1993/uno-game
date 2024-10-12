@@ -7,6 +7,7 @@ export class ConfigComponent implements Component{
     private config: Config
     private resourceUrl: string
     private imageUrls: string[]
+    private audioUrls: string[]
 
     constructor(config: Config) {
         this.config = config
@@ -20,6 +21,10 @@ export class ConfigComponent implements Component{
         if(this.config.imageUrls){
             this.imageUrls = this.config.imageUrls
         }
+
+        if(this.config.audioUrls){
+            this.audioUrls = this.config.audioUrls
+        }
     }
 
     getResourceUrl(){
@@ -28,6 +33,10 @@ export class ConfigComponent implements Component{
 
     getImageUrls(){
         return this.imageUrls
+    }
+
+    getAudioUrls(){
+        return this.audioUrls
     }
 
 }

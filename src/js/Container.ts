@@ -5,6 +5,7 @@ import {LogComponent} from "./component/LogComponent";
 import {Config} from "./Config";
 import {SceneManager} from "./scene/SceneManager";
 import {System} from "./System";
+import {AudioComponent} from "./component/AudioComponent";
 
 export class Container{
     private wrapper: HTMLElement
@@ -14,9 +15,9 @@ export class Container{
     private readonly dpr: number
     private width: number
     private height: number
-    private drawItems: Drawable[]
     private animationId: number
     private imageComponent: ImageComponent
+    private audioComponent: AudioComponent
     private config: Config
     private configComponent: ConfigComponent
     private logComponent: LogComponent
@@ -62,6 +63,13 @@ export class Container{
         await this.imageComponent.init()
         this.logComponent.info("图片资源加载完成")
 
+        this.audioComponent = new AudioComponent(this.configComponent.getResourceUrl(),
+            this.configComponent.getAudioUrls(),
+            this.logComponent)
+
+        await this.audioComponent.init()
+        this.logComponent.info("音乐资源加载完成")
+
         this.sceneManager = new SceneManager(this)
         this.sceneManager.init()
 
@@ -85,6 +93,10 @@ export class Container{
 
     public getImage(name: string): HTMLImageElement{
         return this.imageComponent.getImage(name)
+    }
+
+    public getAudio(name: string): HTMLAudioElement{
+        return this.audioComponent.getAudio(name)
     }
 
     static create(element: HTMLElement, config: Config){

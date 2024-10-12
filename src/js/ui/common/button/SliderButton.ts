@@ -8,7 +8,9 @@ export class SliderButton extends BasicButton {
     private sliderY: number
     private r: number
     private value: number
-    constructor(pos: Point, option: ButtonOption) {
+    private full: boolean
+
+    constructor(pos: Point, full: boolean, option: ButtonOption) {
         option = option ?? {}
         super(pos, option)
         this.setDefaultOption({
@@ -23,10 +25,14 @@ export class SliderButton extends BasicButton {
             func: () => {}
         })
         this.updateConfig()
+        this.full = full
         this.r = this.option.height / 2
         this.pos.y = this.pos.y - this.r
         this.sliderX = this.pos.x +  this.r
         this.sliderY = this.pos.y +  this.r
+        if(this.full){
+            this.sliderX = this.pos.x + this.option.width - 2 * this.r
+        }
 
     }
 
@@ -76,7 +82,7 @@ export class SliderButton extends BasicButton {
         }else{
             this.sliderX = x
         }
-        this.value = this.sliderX / (this.option.width - 2 * this.r)
+        this.value = (this.sliderX - this.pos.x) / (this.option.width - 2 * this.r)
     }
 
 }

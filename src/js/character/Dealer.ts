@@ -98,7 +98,7 @@ export class Dealer implements Player, Drawable, Clickable{
         let x = this.container.getWidth() / 2 - newGameDiv.getWidth() / 2
         let winner = this.getCurPlayer().getName()
         this.winnerPanel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "获胜者：" + winner,
-                "", "24px serif", 200), body: newGameDiv})
+                "#000", "24px serif", 200), body: newGameDiv})
     }
 
     choose(): UnoColorType {
@@ -176,7 +176,6 @@ export class Dealer implements Player, Drawable, Clickable{
         let cards = [card]
         let res = this.rule.check(cards, this.usedCards)
         this.curCard = card
-        console.log("check " + res)
         if(res == UnoRuleType.error){
             this.alertManager.addError("请选择符合规则的牌！")
             return false

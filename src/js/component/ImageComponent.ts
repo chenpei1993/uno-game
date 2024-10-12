@@ -9,7 +9,7 @@ export class ImageComponent implements Component{
 
     constructor(url: string, images: string[], log: LogComponent) {
         this.images = images
-        this.url = url
+        this.url = url + "img/"
         this.imageMap = new Map<string, HTMLImageElement>()
         this.log = log
     }
