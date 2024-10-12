@@ -61,7 +61,10 @@ export class NewGameScene implements Scene{
         this.fps = new FixedUpdateValueTextTag(new Point( w - 60, 14),fpsStr.toString(),
             "white", "12px",100, 100,
             ()=>{
-                return "FPS: " + System.getFPS().toFixed(0)
+                if(System.getFPS()){
+                    return "FPS: " + System.getFPS().toFixed(0)
+                }
+                return "FPS: -"
             }, 500)
     }
 

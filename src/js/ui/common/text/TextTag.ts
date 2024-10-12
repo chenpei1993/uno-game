@@ -25,7 +25,7 @@ export class TextTag implements Item{
         ctx.font = this.font
         let box = ctx.measureText(this.text)
         let x = this.pos.x - box.width / 2
-        let y = this.pos.y + box.fontBoundingBoxDescent
+        let y = this.pos.y
         ctx.fillStyle = this.color
         ctx.fillText(this.text, x, y)
         ctx.restore()

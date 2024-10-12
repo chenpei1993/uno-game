@@ -72,13 +72,11 @@ export class UserPlayer extends BasicPlayer {
     }
 
     click(x: number, y: number){
-        if(!this.dealer.isMyTurn(this)){
-            return
+        if(this.dealer.isMyTurn(this)){
+            this.playButton.click(x, y)
+            this.punishButton.click(x, y)
         }
 
-        this.playButton.click(x, y)
-
-        this.punishButton.click(x, y)
 
         for(let i = 0; i < this.holdCards.length; i++){
             let card = this.holdCards[i]

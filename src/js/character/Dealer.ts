@@ -86,7 +86,7 @@ export class Dealer implements Player, Drawable, Clickable{
             func:() => {this.handleChosenColor(UnoColorType.Green)}}))
 
         let x = container.getWidth() / 2 - colors.getWidth() / 2
-        this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "", "24px serif"), body: colors})
+        this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "#000", "24px serif"), body: colors})
         this.gameEnd = false
         this.winnerPanel = null
     }
@@ -163,6 +163,7 @@ export class Dealer implements Player, Drawable, Clickable{
         if(this.showPanel){
             this.panel.draw(ctx)
         }
+
     }
 
     getACard(card: Card, player: BasicPlayer): boolean {
