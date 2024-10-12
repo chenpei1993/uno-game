@@ -1,7 +1,7 @@
 import {AI} from "./AI";
 import {Card} from "../character/Card";
 import {UnoCardType} from "../const/UnoCardType";
-import {UnoColorType} from "../const/UnoColorType";
+import {randomColor, UnoColorType} from "../const/UnoColorType";
 
 export class SimpleAI implements AI{
 
@@ -74,8 +74,8 @@ export class SimpleAI implements AI{
         if(i){
             return cards[i].getColor()
         }
-        let arr = [UnoColorType.Red, UnoColorType.Yellow, UnoColorType.Blue, UnoColorType.Green]
-        return arr[Math.floor(Math.random() * arr.length)]
+
+        return randomColor()
     }
 
 }

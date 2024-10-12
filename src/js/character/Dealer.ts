@@ -17,7 +17,7 @@ import {RectButton} from "../ui/common/button/RectButton";
 import {TextTag} from "../ui/common/text/TextTag";
 import {OrientType} from "../ui/common/layout/OrientType";
 import {Clickable} from "../ui/Clickable";
-import {UnoColorType} from "../const/UnoColorType";
+import {randomColor, UnoColorType} from "../const/UnoColorType";
 import {UnoChooseType} from "../const/UnoChooseType";
 
 export class Dealer implements Player, Drawable, Clickable{
@@ -138,8 +138,12 @@ export class Dealer implements Player, Drawable, Clickable{
         }
 
         if(!this.timer.isLive()){
-            let player = this.players.get(this.names[this.turn])
-            player.getCards(this.givePunishCard())
+            if(this.showPanel){
+                this.handleChosenColor(randomColor())
+            }else{
+                let player = this.players.get(this.names[this.turn])
+                player.getCards(this.givePunishCard())
+            }
             this.timer = this.timers[this.turn]()
         }
 
