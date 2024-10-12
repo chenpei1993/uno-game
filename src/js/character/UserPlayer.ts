@@ -46,6 +46,7 @@ export class UserPlayer extends BasicPlayer {
             width: 50,
             color: "red",
             func: () => {
+                this.dealer.getACard(null, this)
                 this.getCards(this.dealer.givePunishCard())
             }
         })
@@ -72,7 +73,7 @@ export class UserPlayer extends BasicPlayer {
     }
 
     click(x: number, y: number){
-        if(this.dealer.isMyTurn(this)){
+        if(this.dealer.isPlayerTurn(this)){
             this.playButton.click(x, y)
             this.punishButton.click(x, y)
         }

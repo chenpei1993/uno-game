@@ -11,7 +11,7 @@ const unoConfig = {
         "card/Wild_Color.png","card/Wild_Draw.png",
     ],
     audioUrls: [
-        "music/background.mp3", "music/card.mp3",
+        "music/background.mp3", "music/card.mp3", "music/error.mp3",
     ],
 
 }

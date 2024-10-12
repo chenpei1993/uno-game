@@ -47,6 +47,9 @@ export class Dealer implements Player, Drawable, Clickable{
     private showPanel: boolean
     private gameEnd: boolean
     private container: Container
+    private cardAudio: HTMLAudioElement
+    private errorAudio: HTMLAudioElement
+    private failAudio: HTMLAudioElement
 
     constructor(container: Container,pos: Point, width: number, height: number, cardWidth: number, cardHeight: number) {
         this.container = container;
@@ -89,6 +92,8 @@ export class Dealer implements Player, Drawable, Clickable{
         this.panel = new Panel(new Point(x, this.pos.y), {title: new TextTag(null, "请选择一个颜色", "#000", "24px serif"), body: colors})
         this.gameEnd = false
         this.winnerPanel = null
+        this.cardAudio = this.container.getAudio("card")
+        this.errorAudio = this.container.getAudio("error")
     }
 
     private createWinnerPanel(): void{
@@ -177,7 +182,10 @@ export class Dealer implements Player, Drawable, Clickable{
         let res = this.rule.check(cards, this.usedCards)
         this.curCard = card
         if(res == UnoRuleType.error){
-            this.alertManager.addError("请选择符合规则的牌！")
+            if(card){
+                this.alertManager.addError("请选择符合规则的牌！")
+            }
+            this.errorAudio.play()
             return false
         }
 
@@ -212,7 +220,7 @@ export class Dealer implements Player, Drawable, Clickable{
             this.timer = this.timers[this.turn]()
             this.getCurPlayer().myTurn(UnoChooseType.Color)
         }
-
+        this.cardAudio.play()
         return true
     }
 
@@ -288,8 +296,13 @@ export class Dealer implements Player, Drawable, Clickable{
         return player.isRobot()
     }
 
-    isMyTurn(player: Player): boolean{
-        return this.getCurPlayer().getName() == player.getName()
+    isPlayerTurn(player: Player): boolean{
+        let res = this.getCurPlayer().getName() == player.getName()
+        if(!res && this.showPanel){
+            this.alertManager.addError("当前不是你的回合！")
+            this.errorAudio.play()
+        }
+        return res
     }
 
     getInfoFromDeal(cards: Card[]): void {
