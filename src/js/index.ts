@@ -1,7 +1,7 @@
 import {Container} from "./Container";
 
 const unoConfig = {
-    resourceUrl: "http://127.0.0.1:8080/assets/",
+    resourceUrl: document.URL + "assets/",
     imageUrls: [
         "Table_0.png","Table_1.png","Table_2.png","Table_3.png","Table_4.png","Deck.png",
         "card/Blue_0.png","card/Blue_1.png","card/Blue_2.png","card/Blue_3.png","card/Blue_4.png","card/Blue_5.png","card/Blue_6.png","card/Blue_7.png","card/Blue_8.png","card/Blue_9.png","card/Blue_Draw.png","card/Blue_Reverse.png","card/Blue_Skip.png",

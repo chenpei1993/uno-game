@@ -18,7 +18,7 @@ export class SliderButton extends BasicButton {
             height: 30,
             text: '',
             font: '24px',
-            backgroundColor: '#000',
+            backgroundColor: "rgba(0,0,0,0.5)",
             color: '#000',
             textColor: '#000',
             radius: 10,
@@ -37,8 +37,6 @@ export class SliderButton extends BasicButton {
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        let r = this.option.height / 2
-
         ctx.save()
         ctx.strokeStyle = this.option.color
         ctx.beginPath()
@@ -53,12 +51,12 @@ export class SliderButton extends BasicButton {
         ctx.lineTo(this.pos.x + this.option.width - this.r * 2, this.pos.y)
         ctx.arc(this.sliderX, this.pos.y + this.r, this.r, Math.PI * 1.5, Math.PI * 0.5)
         ctx.closePath()
-        ctx.fillStyle = "rgba(0,0,0,0.5)"
+        ctx.fillStyle = this.option.backgroundColor
         ctx.fill()
 
         ctx.beginPath()
         ctx.arc(this.sliderX, this.sliderY, this.r  , 0 , Math.PI * 2)
-        ctx.fillStyle = "#000"
+        ctx.fillStyle = this.option.color
         ctx.fill()
         ctx.closePath()
         ctx.restore()
@@ -83,6 +81,11 @@ export class SliderButton extends BasicButton {
             this.sliderX = x
         }
         this.value = (this.sliderX - this.pos.x) / (this.option.width - 2 * this.r)
+    }
+
+    setPercent(p: number){
+        let v = this.pos.x + (this.option.width - 2 * this.r)  * (p / 100)
+        this.setSliderX(v)
     }
 
 }

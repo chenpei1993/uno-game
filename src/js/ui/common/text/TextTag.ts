@@ -10,21 +10,26 @@ export class TextTag implements Item{
     protected color: string
     protected width: number
     protected height: number
+    protected center: boolean
 
-    constructor(pos: Point, text: string, color: string, font: string, width: number = 100, height: number = 100) {
+    constructor(pos: Point, text: string, color: string, font: string, width: number = 100, height: number = 100, center: boolean = true) {
         this.pos = pos
         this.text = text
         this.color = color ?? "#000"
         this.font = font ?? "18px serif"
         this.width = width
         this.height = height
+        this.center = center
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
         ctx.save()
         ctx.font = this.font
         let box = ctx.measureText(this.text)
-        let x = this.pos.x - box.width / 2
+        let x = this.pos.x
+        if(this.center){
+            x = x - box.width / 2
+        }
         let y = this.pos.y + box.fontBoundingBoxDescent
         ctx.fillStyle = this.color
         ctx.fillText(this.text, x, y)

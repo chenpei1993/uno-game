@@ -8,6 +8,7 @@ import {System} from "./System";
 import {AudioComponent} from "./component/AudioComponent";
 import {GameSetting} from "./GameSetting";
 import {GameUtil} from "./util/GameUtil";
+import {Loading} from "./ui/widget/Loading";
 
 export class Container{
     private wrapper: HTMLElement
@@ -55,12 +56,13 @@ export class Container{
 
     async init() {
 
-
+        Loading.draw(this.ctx, this, "加载中...", 0)
         this.logComponent = new LogComponent()
 
         this.configComponent = new ConfigComponent(this.config)
         this.configComponent.init()
 
+        Loading.draw(this.ctx, this, "加载图片...", 33)
         this.imageComponent = new ImageComponent(
             this.configComponent.getResourceUrl(),
             this.configComponent.getImageUrls(),
@@ -69,6 +71,7 @@ export class Container{
         await this.imageComponent.init()
         this.logComponent.info("图片资源加载完成")
 
+        Loading.draw(this.ctx, this, "加载音乐...", 66)
         this.audioComponent = new AudioComponent(this.configComponent.getResourceUrl(),
             this.configComponent.getAudioUrls(),
             this.logComponent)
@@ -82,6 +85,8 @@ export class Container{
         window.addEventListener("click", (e) => {
             this.sceneManager.getCurScene().click(e.offsetX, e.offsetY)
         })
+
+        Loading.draw(this.ctx, this, "加载完成...", 100)
     }
 
     async run(){
