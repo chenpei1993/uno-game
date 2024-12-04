@@ -9,6 +9,7 @@ import {AudioComponent} from "./component/AudioComponent";
 import {GameSetting} from "./GameSetting";
 import {GameUtil} from "./util/GameUtil";
 import {Loading} from "./ui/widget/Loading";
+import {HelperUtil} from "./util/HelperUtil";
 
 export class Container{
     private wrapper: HTMLElement
@@ -55,17 +56,22 @@ export class Container{
     }
 
     async init() {
-
         Loading.draw(this.ctx, this, "加载中...", 0)
         this.logComponent = new LogComponent()
 
         this.configComponent = new ConfigComponent(this.config)
         this.configComponent.init()
 
-        Loading.draw(this.ctx, this, "加载图片...", 33)
+        Loading.draw(this.ctx, this, "加载图片...", 10)
+        let process = 10;
+        let increment = 56 / this.configComponent.getImageUrls().length
         this.imageComponent = new ImageComponent(
             this.configComponent.getResourceUrl(),
             this.configComponent.getImageUrls(),
+            () => {
+                process = process + increment
+                Loading.draw(this.ctx, this, "加载图片...", process)
+            },
             this.logComponent)
 
         await this.imageComponent.init()
@@ -87,6 +93,7 @@ export class Container{
         })
 
         Loading.draw(this.ctx, this, "加载完成...", 100)
+        await HelperUtil.sleep(1000)
     }
 
     async run(){

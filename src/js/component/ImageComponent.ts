@@ -6,12 +6,14 @@ export class ImageComponent implements Component{
     private readonly images: string[]
     private imageMap: Map<string, HTMLImageElement>
     private log: LogComponent
+    private fn: () => void
 
-    constructor(url: string, images: string[], log: LogComponent) {
+    constructor(url: string, images: string[], fn: ()=> void, log: LogComponent) {
         this.images = images
         this.url = url + "img/"
         this.imageMap = new Map<string, HTMLImageElement>()
         this.log = log
+        this.fn = fn
     }
 
     async init() {
@@ -28,7 +30,10 @@ export class ImageComponent implements Component{
     loadImage(name: string): Promise<HTMLImageElement> {
         return new Promise<HTMLImageElement>((resolve, reject) => {
             let img = new Image()
-            img.onload = () => resolve(img)
+            img.onload = () => {
+                this.fn()
+                resolve(img)
+            }
             img.onerror = (e) => {
                 this.log.error(name + " 加载失败！")
             }
@@ -37,6 +42,7 @@ export class ImageComponent implements Component{
             this.imageMap.set(realName, img)
         })
     }
+
 
     getImage(name: string): HTMLImageElement{
         return this.imageMap.get(name)
