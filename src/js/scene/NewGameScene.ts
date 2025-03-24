@@ -54,6 +54,7 @@ export class NewGameScene implements Scene{
             textColor: "red",
             color: "rgba(0,0,0,0)",
             func: () => {
+                this.stop()
                 this.sceneManager.nextScene(SceneType.Main)
             }
         })
@@ -71,6 +72,10 @@ export class NewGameScene implements Scene{
 
     init(){
         this.dealer.newGame()
+    }
+
+    stop(){
+        this.dealer.stopGame()
     }
 
     click(x: number, y: number): void {

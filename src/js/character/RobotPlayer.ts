@@ -8,12 +8,14 @@ export class RobotPlayer extends BasicPlayer{
     private ai: AI
     private chosenCardIdx: number
     protected interval: number
+    protected timer: number
 
     constructor(name: string,width: number, height: number, dealer: Dealer, ai: AI) {
         super(name, width, height, dealer)
         this.ai = ai
         this.chosenCardIdx = null
         this.interval =  Math.max(20, Math.min(this.dealer.getCardWidth() / 2, 40))
+        this.timer = null
     }
 
     giveACard(): Card{
@@ -46,7 +48,10 @@ export class RobotPlayer extends BasicPlayer{
 
     chooseCard(): void{
         let random = 5000
-        setTimeout(e => {
+       setTimeout(e => {
+            if(this.dealer.isGameEnd()){
+                return
+            }
             let card = this.giveACard()
             let res = this.dealer.getACard(card, this)
             if(!res){
@@ -60,7 +65,7 @@ export class RobotPlayer extends BasicPlayer{
 
     chooseColor(): void {
         let random = 5000
-        setTimeout(e => {
+        this.timer = setTimeout(e => {
             let color = this.ai.choose(this.holdCards)
             this.dealer.handleChosenColor(color)
         }, random)
@@ -68,5 +73,12 @@ export class RobotPlayer extends BasicPlayer{
 
     isRobot(): boolean {
         return true
+    }
+
+    reset() : void{
+        if(this.timer){
+            clearTimeout(this.timer)
+        }
+        this.holdCards = new Array<Card>()
     }
 }

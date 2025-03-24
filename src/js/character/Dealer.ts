@@ -128,6 +128,18 @@ export class Dealer implements Player, Drawable, Clickable{
 
         this.turn = 0
         this.timer = this.timers[this.turn]()
+        this.gameEnd = false
+    }
+
+    stopGame(){
+        this.reset()
+        for(let e of this.players.values()){
+            e.reset()
+        }
+
+        this.turn = 0
+        this.timer = null
+        this.gameEnd = true
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
@@ -346,4 +358,7 @@ export class Dealer implements Player, Drawable, Clickable{
         return this.cards[0].getHeight()
     }
 
+    isGameEnd() {
+        return this.gameEnd;
+    }
 }
