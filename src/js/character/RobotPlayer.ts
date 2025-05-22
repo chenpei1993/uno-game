@@ -65,7 +65,10 @@ export class RobotPlayer extends BasicPlayer{
 
     chooseColor(): void {
         let random = 5000
-        this.timer = setTimeout(e => {
+        setTimeout(e => {
+            if(this.dealer.isGameEnd()){
+                return
+            }
             let color = this.ai.choose(this.holdCards)
             this.dealer.handleChosenColor(color)
         }, random)
@@ -73,12 +76,5 @@ export class RobotPlayer extends BasicPlayer{
 
     isRobot(): boolean {
         return true
-    }
-
-    reset() : void{
-        if(this.timer){
-            clearTimeout(this.timer)
-        }
-        this.holdCards = new Array<Card>()
     }
 }

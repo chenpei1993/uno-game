@@ -92,6 +92,10 @@ export class Container{
             this.sceneManager.getCurScene().click(e.offsetX, e.offsetY)
         })
 
+        window.addEventListener("touchstart", (e) => {
+            this.sceneManager.getCurScene().click(e.touches[0].clientX, e.touches[0].clientY)
+        })
+
         Loading.draw(this.ctx, this, "加载完成...", 100)
         await HelperUtil.sleep(1000)
     }
